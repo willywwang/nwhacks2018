@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'ngResource', 'ui.bootstrap', 'chart.js', 'underscore']);
+var app = angular.module('app', ['ngRoute', 'ngResource', 'ui.bootstrap']);
 
 app.run(['$rootScope', '$http', '$window', '$location',
 	function($rootScope, $http, $window, $location) {
