@@ -1,8 +1,40 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	width: 100%;
+	height: 100%;
+	width: 100%;
+	height: 100%;
+	font-family: sans-serif;
+	overflow-x: hidden;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
 }
 
 a {
-  color: #00B7FF;
+	color: #00B7FF;
+}
+
+.row {
+	height: 100%;
+	width: 100%;
+	margin: 0 0 0 0;
+}
+
+.container {
+	height: 100%;
+	width: 100%;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+}
+
+.view {
+	height: 100%;
+	padding: 0 0 0 0;
+}
+
+.fa {
+	color: black;
 }
