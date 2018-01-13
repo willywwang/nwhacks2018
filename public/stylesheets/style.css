@@ -38,3 +38,7 @@ a {
 .fa {
 	color: black;
 }
+
+#map {
+	height: 100%;
+}
