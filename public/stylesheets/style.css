@@ -94,6 +94,7 @@ p {
 	height: 100%;
 }
 
+/*
 #list {
 	display:  block;
 	height: 80%;
@@ -101,13 +102,13 @@ p {
 	outline: 1px solid gray;
 	margin: 0 auto;
 	background-color: white;
-	font-size: 1.5em;
+	font-size: 1.2em;
 	font-family: Karla;
 	text-align: left;
 	padding-left: 2%;
 	padding-top: 4%;
 }
-
+*/
 #search {
 	z-index: 20;
 	display: block;
@@ -218,6 +219,21 @@ p {
   border-radius: 50%;
 }
 
+ul {
+	display:  block;
+	height: 80%;
+	width: 80%;
+	outline: 1px solid gray;
+	background-color: white;
+	font-size: 1.2em;
+	font-family: Karla;
+	text-align: left;
+	margin-left: 10%;
+	padding-top: 4%;
+    list-style-type: none;
+	overflow: scroll;
+}
+
 
 @media only screen and (max-width: 500px) {
 	
@@ -249,6 +265,7 @@ p {
 		height: 45px;
 		width: 100%;
 	}
+	
 
 
 	#filter-icon {
@@ -277,5 +294,18 @@ p {
 		vertical-align: center;
 		align-content: center;
 
+	}
+	
+	#horizontal{
+		z-index: 20;
+		overflow: auto;
+		white-space: nowrap;
+		
+	}
+	
+	#horizontal ul li {
+		display: inline-block;
+		text-align: center;
+   
 	}
 }
