@@ -4,7 +4,8 @@
 	function initMap() {
 		map = new google.maps.Map(document.getElementById('map'), {
 			center: {lat: 49.2606, lng: 123.246},
-			zoom: 17
+			zoom: 17,
+			disableDefaultUI: true
 		});
 
 		if (navigator.geolocation) {
@@ -21,14 +22,15 @@ async defer></script>
 	<div id="map"></div>
 </div>
 <div class="col-xs-3 view">
-
 	<div id="search">
 		<input type="text" name="search" placeholder="Search">
 		<img id="filter" src="/resources/filter-results-button.png"/>
+		<button class="btn btn-default">
+		<i class="fa fa-filter" aria-hidden="true"></i>
+		</button>
 	</div>
 
 	<div id="restaurantlist">
 	
 	</div>
-
 </div>
