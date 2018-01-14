@@ -28,6 +28,14 @@ a {
 	margin-right: 2%;
 	margin-top: 2%;
 	top: -100%;
+	outline: 0.5vw solid white;
+	background-color: white;
+
+}
+
+.hoverb:hover {
+	background-color: grey;
+	
 }
 
 h1 {
