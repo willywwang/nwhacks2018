@@ -19,13 +19,13 @@ router.get('/', function(req, res, next) {
     if (req.user) {
       Post.find({ userID: req.user.facebook.id }, function(err, userPosts) {
         if (err) {
-          res.render('index', { title: 'Express', user: req.user, posts: JSON.stringify(posts) });
+          res.render('index', { title: 'Table for Two', user: req.user, posts: JSON.stringify(posts) });
         } else {
-          res.render('index', { title: 'Express', user: req.user, posts: JSON.stringify(posts), userPosts: JSON.stringify(userPosts) });
+          res.render('index', { title: 'Table for Two', user: req.user, posts: JSON.stringify(posts), userPosts: JSON.stringify(userPosts) });
         }
       });
     } else {
-      res.render('index', { title: 'Express', user: req.user, posts: JSON.stringify(posts) });
+      res.render('index', { title: 'Table for Two', user: req.user, posts: JSON.stringify(posts) });
     }
   });
 
