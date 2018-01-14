@@ -151,6 +151,13 @@ p {
 	
 }
 
+.btn {
+	
+	height: 50px;
+	width: 80px;
+	
+}
+
 @media only screen and (max-width: 500px) {
 	
 	.header-phone {
