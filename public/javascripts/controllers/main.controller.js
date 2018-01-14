@@ -2,6 +2,7 @@ angular.module('app')
 .controller('mainController', ['$scope', '$rootScope', '$http', '$window', '$uibModal',
 	function($scope, $rootScope, $http, $window, $uibModal) {
 		$scope.restaurants = [];
+		$scope.filteredRestaurants = [];
 		
 		function initPage() {
 			$scope.activeLink = 'restaurant';
@@ -161,13 +162,16 @@ angular.module('app')
 								
 								$scope.restaurants = $scope.restaurants.map(r => r.restaurant);
 
-								$scope.restaurants = $scope.restaurants.forEach(function(restaurant) {
+								$scope.restaurants.forEach(function(restaurant) {
+									console.log(restaurant);
 									$scope.marker = new google.maps.Marker({
 										map: $scope.map,
 										position: new google.maps.LatLng(restaurant.location.latitude, restaurant.location.longitude),
 										title: restaurant.name
 									});
 								});
+
+								$scope.filteredRestaurants = $scope.restaurants.splice(0, 25);
 							}, function(err) {
 								console.log(err);
 							});

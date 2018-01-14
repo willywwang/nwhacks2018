@@ -24,9 +24,8 @@
 		</div>
 
 		<div id="list">
-			{{restaurant.name}}
-			<div ng-repeat="restaurant in restaurants track by $index">
-			{{restaurant.name}}
+			<div ng-repeat="restaurant in filteredRestaurants track by $index">
+			{{restaurant.name}} : {{restaurant.user_rating.aggregate_rating}}
 			</div>
 		</div>
 	</div>
