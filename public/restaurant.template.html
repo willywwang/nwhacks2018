@@ -41,7 +41,7 @@
 					<span class="input-group-addon">
 						<i class="fa fa-clock-o"></i>
 					</span>
-					<input class="form-control" placeholder="Start Time" ng-model="ctrl.timepicker" ng-model-options="{ updateOn: 'blur' }">
+					<input class="form-control" placeholder="Start Time" ng-model="startTime" ng-model-options="{ updateOn: 'blur' }" required>
 				</div>
 				<br/>
 				<label>End Time</label>
@@ -49,7 +49,7 @@
 					<span class="input-group-addon">
 					<i class="fa fa-clock-o"></i>
 					</span>
-					<input class="form-control" placeholder="Start Time" ng-model="ctrl.timepicker" ng-model-options="{ updateOn: 'blur' }">
+					<input class="form-control" placeholder="Start Time" ng-model="endTime" ng-model-options="{ updateOn: 'blur' }" required>
 				</div>
 				<br/>
 				<input type="submit" value="Submit" class="btn btn-primary pull-right"/>
