@@ -26,111 +26,75 @@ angular.module('app')
 				zoomControl: true,
 				styles: [
 				{
-					"featureType": "administrative",
+					"featureType": "landscape.natural",
+					"elementType": "geometry.fill",
+					"stylers": [
+						{
+							"visibility": "on"
+						},
+						{
+							"color": "#e0efef"
+						}
+					]
+				},
+				{
+					"featureType": "poi",
+					"elementType": "geometry.fill",
+					"stylers": [
+						{
+							"visibility": "on"
+						},
+						{
+							"hue": "#1900ff"
+						},
+						{
+							"color": "#c0e8e8"
+						}
+					]
+				},
+				{
+					"featureType": "road",
 					"elementType": "geometry",
 					"stylers": [
-					{
-						"visibility": "off"
-					}
+						{
+							"lightness": 100
+						},
+						{
+							"visibility": "simplified"
+						}
 					]
 				},
 				{
-					"featureType": "administrative.land_parcel",
+					"featureType": "road",
+					"elementType": "labels",
 					"stylers": [
-					{
-						"visibility": "off"
-					}
+						{
+							"visibility": "off"
+						}
 					]
 				},
 				{
-					"featureType": "administrative.neighborhood",
+					"featureType": "transit.line",
+					"elementType": "geometry",
 					"stylers": [
-					{
-						"visibility": "off"
-					}
+						{
+							"visibility": "on"
+						},
+						{
+							"lightness": 700
+						}
 					]
 				},
 				{
-					"featureType": "poi",
+					"featureType": "water",
+					"elementType": "all",
 					"stylers": [
-					{
-						"visibility": "off"
-					}
+						{
+							"color": "#7dcdcd"
+						}
 					]
-				},
-				{
-					"featureType": "poi",
-					"elementType": "labels.text",
-					"stylers": [
-					{
-						"visibility": "off"
-					}
-					]
-				},
-				{
-					"featureType": "poi.attraction",
-					"stylers": [
-					{
-						"visibility": "off"
-					}
-					]
-				},
-				{
-					"featureType": "poi.business",
-					"stylers": [
-					{
-						"visibility": "off"
-					}
-					]
-				},
-				{
-					"featureType": "poi.government",
-					"stylers": [
-					{
-						"visibility": "off"
-					}
-					]
-				},
-				{
-					"featureType": "poi.medical",
-					"stylers": [
-					{
-						"visibility": "off"
-					}
-					]
-				},
-				{
-					"featureType": "poi.park",
-					"stylers": [
-					{
-						"visibility": "off"
-					}
-					]
-				},
-				{
-					"featureType": "poi.place_of_worship",
-					"stylers": [
-					{
-						"visibility": "off"
-					}
-					]
-				},
-				{
-					"featureType": "poi.school",
-					"stylers": [
-					{
-						"visibility": "off"
-					}
-					]
-				},
-				{
-					"featureType": "poi.sports_complex",
-					"stylers": [
-					{
-						"visibility": "off"
-					}
-					]
-				}]
+				}
+			]
 			};
 
 
