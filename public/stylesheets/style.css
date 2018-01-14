@@ -136,7 +136,17 @@ p {
     width: 250px;
 }
 
+#iconwrapper {
+	position: relative;
+		z-index: 20;
+		right: -10%;
+		top: -20%;
+}
 
+#icon {
+	height: 100px;
+	
+}
 
 @media only screen and (max-width: 500px) {
 	
