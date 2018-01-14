@@ -132,18 +132,26 @@ p {
 	box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
 	box-sizing: border-box;
 	font-family: Roboto;
+<<<<<<< HEAD
+	padding: 0 11px 0 13px;
+	font-size: 15px;
+	font-weight: 300;
+	height: 29px;
+	width: 250px;
+=======
     padding: 0 11px 0 13px;
     font-size: 15px;
     font-weight: 300;
     height: 5vh;
     width: 25vw;
+>>>>>>> 3ee6e7b54c34b5ff376c6099bfbf404e146bb587
 }
 
 #iconwrapper {
 	position: relative;
-		z-index: 20;
-		right: -10%;
-		top: -20%;
+	z-index: 20;
+	right: -10%;
+	top: -20%;
 }
 
 #icon {
@@ -151,11 +159,20 @@ p {
 	
 }
 
+.label {
+	font-size: 10px;
+	font-size: 1rem;
+	font-weight: normal;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	background-color: #658db3;
+}
+
 .btn {
 	
 	height: 50px;
 	width: 80px;
-	
 }
 
 @media only screen and (max-width: 500px) {
@@ -175,6 +192,7 @@ p {
 	background-color: white;
 	text-align: center;
 	padding-left: 0;
+
 	}
 
 	.empty-space {
@@ -201,5 +219,5 @@ p {
 	
     #search {
 		margin-top: -13%;
-		margin-right: 10%;
-}
+
+	}

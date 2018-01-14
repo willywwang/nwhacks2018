@@ -94,7 +94,7 @@ router.post('/add-outing', function(req, res) {
     }
 
     res.redirect('/');
-});
+  });
 
 router.post('/join/:postID/:joiner', function(req, res) {
   console.log(req.params.postID);
@@ -121,21 +121,22 @@ router.post('/data', function(req, res) {
   var lon = req.body.lon;
   var radius = req.body.radius;
 
-  var url = 'https://developers.zomato.com/api/v2.1/search?start=' + offset + '&lat=' + lat + '&lon=' + lon + '&radius=' + radius;
-  var token = 'user_key';
+  var url = 'https://api.yelp.com/v3/businesses/search?categories=restaurants' + '&latitude=' + lat + '&longitude=' + lon + '&radius=' + radius + '&sort_by=distance&limit=50&offset=' + offset;
 
-    var options = {
-          method: 'GET',
-          url: url,
-          headers: {
-              'user_key': '39d7b0047f4d3176f7115db315b09012',
-              "Content-Type": "application/json"
-          }
-      };
+  console.log(url);
 
-      request(options, function(error,response,body){
-          res.send(body);
-      });
+  var options = {
+    method: 'GET',
+    url: url,
+    headers: {
+      'Authorization': 'Bearer 5oCSXV5l9pxICrBuXzbYrw4tUsMm_QGx0lF-4T1_GTZOHK8opKnoTI-UVn-XjqRQ5SxWcXqa_Ihbw4CnL8DF4fCyZJAorGpngb_en8MR9MD-f4n6j6HnNosnIhlbWnYx'
+    }
+  };
+
+  request(options, function(error,response,body){
+    console.log(body);
+    res.send(body);
+  });
 
 });
 
