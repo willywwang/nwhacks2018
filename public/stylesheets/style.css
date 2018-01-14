@@ -211,7 +211,7 @@ p {
 	display: block;
 	float: right;
 	margin-right: 1.5em;
-	text-style: bold;
+	font-weight: 700;
 }
 
 
