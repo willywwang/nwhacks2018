@@ -1,141 +1,19 @@
-<script>
-	var map;
-	function initMap() {
-		map = new google.maps.Map(document.getElementById('map'), {
-			center: {lat: 49.2606, lng: 123.246},
-			zoom: 17,
-			disableDefaultUI: true,
-			styles: [
-			{
-				"featureType": "administrative",
-				"elementType": "geometry",
-				"stylers": [
-				{
-					"visibility": "off"
-				}
-				]
-			},
-			{
-				"featureType": "administrative.land_parcel",
-				"stylers": [
-				{
-					"visibility": "off"
-				}
-				]
-			},
-			{
-				"featureType": "administrative.neighborhood",
-				"stylers": [
-				{
-					"visibility": "off"
-				}
-				]
-			},
-			{
-				"featureType": "poi",
-				"stylers": [
-				{
-					"visibility": "off"
-				}
-				]
-			},
-			{
-				"featureType": "poi",
-				"elementType": "labels.text",
-				"stylers": [
-				{
-					"visibility": "off"
-				}
-				]
-			},
-			{
-				"featureType": "poi.attraction",
-				"stylers": [
-				{
-					"visibility": "off"
-				}
-				]
-			},
-			{
-				"featureType": "poi.business",
-				"stylers": [
-				{
-					"visibility": "off"
-				}
-				]
-			},
-			{
-				"featureType": "poi.government",
-				"stylers": [
-				{
-					"visibility": "off"
-				}
-				]
-			},
-			{
-				"featureType": "poi.medical",
-				"stylers": [
-				{
-					"visibility": "off"
-				}
-				]
-			},
-			{
-				"featureType": "poi.park",
-				"stylers": [
-				{
-					"visibility": "off"
-				}
-				]
-			},
-			{
-				"featureType": "poi.place_of_worship",
-				"stylers": [
-				{
-					"visibility": "off"
-				}
-				]
-			},
-			{
-				"featureType": "poi.school",
-				"stylers": [
-				{
-					"visibility": "off"
-				}
-				]
-			},
-			{
-				"featureType": "poi.sports_complex",
-				"stylers": [
-				{
-					"visibility": "off"
-				}
-				]
-			}]
-		});
+<div class="view" ng-controller="mainController">
+	<div class="col-xs-9 view">
+		<div id="map" ng-click='addMarker();'></div>
+		<div data-ng-model="mymarker"></div>
 
-		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(function (position) {
-				initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-				map.setCenter(initialLocation);
-			});
-		}
-	}
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCa0elBX4ZaSDSnJ2kG9rhG9VEbWYk7ElU&callback=initMap" async defer></script>
-<div class="col-xs-9 view">
-	<div id="map"></div>
-	
 		<div id="search">
-		
-		<button class="btn btn-default btn-sm hoverb">
-			<i class="fa fa-filter" aria-hidden="true"></i>
-		</button>
-		<input id="bar" type="text" name="search" placeholder="Search">
+
+			<button class="btn btn-default btn-sm hoverb">
+				<i class="fa fa-filter" aria-hidden="true"></i>
+			</button>
+			<input id="bar" type="text" name="search" placeholder="Search">
+		</div>
 	</div>
-</div>
 
-<div class="col-xs-3 view">
-	<h1 id="title">table for two</h1>
+	<div class="col-xs-3 view">
+		<h1 id="title">table for two</h1>
 
+	</div>
 </div>
