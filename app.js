@@ -39,8 +39,8 @@ app.use(function (req, res, next) {
     next();
 }); 
 
-//mongoose.connect('mongodb://admin:admin@ds255767.mlab.com:55767/tablefortwo')
-mongoose.connect(configDB.url); // connect to our database
+mongoose.connect('mongodb://admin:admin@ds255767.mlab.com:55767/tablefortwo')
+//mongoose.connect(configDB.url); // connect to our database
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

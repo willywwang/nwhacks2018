@@ -19,8 +19,8 @@ angular.module('app')
 		};
 
 		$scope.loadUsers = function() {
-			$scope.noUsers = false;
-			if ($scope.restaurant != null) {
+			$scope.noUsers = true;
+			if (Object.keys($scope.restaurant).length > 0) {
 				var params = {
 					address: $scope.restaurant.location.address1
 				};
@@ -41,12 +41,6 @@ angular.module('app')
 			$scope.showErrors = false;
 			$scope.showSuccess = false;
 
-			if ($scope.endTime >= $scope.startTime) {
-				$scope.didUserSubmit = false;
-				$scope.showErrors = true;
-				$scope.errorMessage = "End time must be greater than start time"
-			}
-
 			var request = {
 				address: $scope.restaurant.location.address1,
 				startTime: $scope.startTime,
@@ -56,6 +50,7 @@ angular.module('app')
 			$http.post('/add-outing', request).success(function(data) {
 				if (data.state === 'success') {
 					$scope.didUserSubmit = false;
+					$scope.showErrors = false;
 					$scope.showSuccess = true;
 				} else {
 					$scope.didUserSubmit = false;
