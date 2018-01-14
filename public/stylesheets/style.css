@@ -20,9 +20,9 @@ a {
 }
 
 h1 {
+	text-align: center;
 	font-size: 2em;
 	font-family: Karla;
-	text-align: center;
 	
 }
 
@@ -168,12 +168,22 @@ p {
 
 @media only screen and (max-width: 500px) {
 	
+	#iconwrapper{
+		top: -23%;
+	}
+	
+	#icon {
+		height: 80px;
+	}
 	.header-phone {
-		position: fixed;
-		z-index: 20;
-		width: 100%;
-		margin-top: -2.4%;
-		background-color: white;
+	position: fixed;
+	z-index: 20;
+	width: 100%;
+	margin-top: -2.4%;
+	background-color: white;
+	text-align: center;
+	padding-left: 0;
+
 	}
 
 	.empty-space {
@@ -188,18 +198,17 @@ p {
 		height: 40px;
 		width: 40px;
 		margin-top: 2%;
-		margin-left: -80%;
+		margin-left: -77%;
 	}
 	#search-bar {
 		position: fixed;
 		height: 40px;
-		width: -80vw;
+		width: 80vw;
 		margin-top: 2%;
-		margin-left: -68%;
+		margin-left: -67%;
 	}
 	
-	#search {
-		
-		padding-top: 2%;
-		margin-right: 10%;
+    #search {
+		margin-top: -13%;
+
 	}
