@@ -173,6 +173,6 @@ angular.module('app')
 		};
 
 		$scope.openPeopleList = function() {
-			$scope.activeLink = 'people';
+			$scope.activeLink = 'user';
 		};
 	}]);

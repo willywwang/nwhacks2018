@@ -6,19 +6,22 @@
 
 		<div id="search">
 
-			<button class="btn btn-default btn-sm hoverb">
+			<button class="btn btn-default btn-sm hover-grey" id="filter-icon">
 				<i class="fa fa-filter" aria-hidden="true"></i>
 			</button>
-			<input id="bar" type="text" name="search" placeholder="Search">
+			<input id="search-bar" type="text" name="search" placeholder="Search">
 		</div>
 	</div>
-	<div class="col-xs-3 view">
-	<h1 id="title">table for two</h1>
-	
-	<div id="restaurant-button" ng-class="getActiveMenuLinkClass('restaurant')" ng-click="openRestaurantList()"><p>Restaurants</p></div>
-	<div id="people-button" ng-class="getActiveMenuLinkClass('people')" ng-click="openPeopleList()"><p>People</p></div>
-	<div id="list">
+	<div class="col-xs-3 view sidebar">
+		<h1 id="title">table for two</h1>
+
+		<div class="btn-group padding-bot-small">
+			<button class="btn btn-default outline-black" ng-class="getActiveMenuLinkClass('restaurant')" ng-click="openRestaurantList()"><i class="fa fa-cutlery" aria-hidden="true"></i></button>
+			<button class="btn btn-default outline-black" ng-class="getActiveMenuLinkClass('user')" ng-click="openPeopleList()"><i class="fa fa-user" aria-hidden="true"></i></button>
+		</div>
+
+		<div id="list"></div>
 	</div>
 
-	</div>
+</div>
 </div>

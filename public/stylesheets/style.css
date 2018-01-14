@@ -19,43 +19,35 @@ a {
 	color: #00B7FF;
 }
 
-input[type=text] {
-    width: 130px;
-    -webkit-transition: width 0.4s ease-in-out;
-    transition: width 0.4s ease-in-out;
-}
-input[type=text]:focus {
-    color: black;
-}
-
-.col-xs-3 {
-	background-color: #c4c4c4;
-}
-
-
-#search {
-	z-index: 20;
-	display: block;
-	position: relative;
-	float: right;
-	margin-right: 2%;
-	margin-top: 2%;
-	top: -100%;
-	outline: 0.5vw solid white;
-	background-color: white;
-
-}
-
-.hoverb:hover {
-	background-color: grey;
-	
-}
-
 h1 {
 	font-size: 2em;
 	font-family: Karla;
 	text-align: center;
 	
+}
+
+input[type=text] {
+	width: 130px;
+	-webkit-transition: width 0.4s ease-in-out;
+	transition: width 0.4s ease-in-out;
+}
+input[type=text]:focus {
+	color: black;
+}
+
+p {
+	margin-top: 1vh;
+	text-align: center;
+}
+
+.hover-grey:hover {
+	background-color: grey;
+}
+
+.sidebar {
+	text-align: center;
+	align-content: center;
+	background-color: #d3d3d3;
 }
 
 .row {
@@ -80,6 +72,23 @@ h1 {
 	color: black;
 }
 
+.active {
+	background-color: light-gray !important;
+	color: white;
+}
+
+.outline-black {
+	border: 1px solid gray;
+}
+
+.outline-black:focus {
+	outline: none !important;
+}
+
+.padding-bot-small {
+	padding-bottom: 20px;
+}
+
 #map {
 	z-index: 10;
 	height: 100%;
@@ -87,53 +96,39 @@ h1 {
 
 #list {
 	display:  block;
-	float: right;
-	margin-top: 2vh;
-	margin-right: 2.5em;
 	height: 45em;
 	width: 80%;
-	outline: 2px solid gray;
+	outline: 1px solid gray;
+	margin: 0 auto;
 	background-color: white;
 }
 
-#restaurant-button  {
-	font-family: Karla;
+#search {
+	z-index: 20;
 	display: block;
-	margin-left: 25%;
-	float: left;
-	width: 6vw;
-	height: 5vh;
-	background-color: #dbdbdb;
-	margin-bottom: -2vh;
-}
-
-
-#people-button {	
-	font-family: Karla;
-	display: block;
+	position: relative;
 	float: right;
-	margin-right: 25%;
-	width: 6vw;
-	height: 5vh;
-	background-color: #dbdbdb;
-	margin-bottom: -2vh;
+	margin-right: 2%;
+	margin-top: 2%;
+	top: -100%;
 }
 
-#people-button:hover {
-	cursor: pointer;
+#filter-icon {
+	border: 1px solid transparent;
+	border-radius: 2px;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+	box-sizing: border-box;	
 }
 
-
-p {
-	margin-top: 1vh;
-	text-align: center;
-}
-
-p:hover {
-	 cursor: pointer;
-}
-
-.active {
-	background-color: #961e1e !important;
-	color: white;
+#search-bar {
+	border: 1px solid transparent;
+	border-radius: 2px;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+	box-sizing: border-box;
+	font-family: Roboto;
+    padding: 0 11px 0 13px;
+    font-size: 15px;
+    font-weight: 300;
+    height: 29px;
+    width: 250px;
 }
