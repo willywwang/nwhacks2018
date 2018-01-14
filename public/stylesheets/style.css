@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Karla');
+@import url('https://fonts.googleapis.com/css?family=Karla:400,700');
 
 body {
 	width: 100%;
@@ -170,6 +170,21 @@ p {
 	height: 50px;
 	width: 80px;
 }
+
+#name {
+	font-style: bold;
+	display: block;
+	float: left;
+}
+
+#price {
+	margin-top: -1.5em;
+	display: block;
+	float: right;
+	margin-right: 1.5em;
+	text-style: bold;
+}
+
 
 @media only screen and (max-width: 500px) {
 	

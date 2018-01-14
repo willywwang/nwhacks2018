@@ -26,7 +26,7 @@
 
 		<div id="list">
 			<div ng-repeat="restaurant in filteredRestaurants track by $index">
-			{{restaurant.name}} : {{restaurant.rating}}
+			<div id="one-r"><div id="name">{{restaurant.name}}</div>  <div id="rating">{{restaurant.rating}}</div> <div id="price">{{restaurant.price}}</div></div>
 			</div>
 		</div>
 	</div>
