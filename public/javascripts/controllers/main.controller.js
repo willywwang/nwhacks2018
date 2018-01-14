@@ -1,7 +1,7 @@
 angular.module('app')
 .controller('mainController', ['$scope', '$rootScope', '$http', '$window', '$uibModal',
 	function($scope, $rootScope, $http, $window, $uibModal) {
-		$scope.initPage = function() {
+		function initPage() {
 			$scope.activeLink = 'restaurant';
 
 			var mapOptions = {
@@ -155,8 +155,6 @@ angular.module('app')
 			});
 		}
 
-		$scope.initPage();
-
 		$scope.getActiveMenuLinkClass = function(path) {
 			if (!path) {
 				return '';
@@ -172,4 +170,6 @@ angular.module('app')
 		$scope.openPeopleList = function() {
 			$scope.activeLink = 'user';
 		};
+
+		initPage();
 	}]);
