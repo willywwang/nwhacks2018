@@ -1,5 +1,6 @@
 var express = require('express');
 var path = require('path');
+var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -15,6 +16,7 @@ mongoose.connect('mongodb://admin:admin@ds255767.mlab.com:55767/tablefortwo')
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+app.use(favicon(path.join(__dirname, 'public', 'resources', 'logo.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
