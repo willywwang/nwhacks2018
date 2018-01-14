@@ -1,10 +1,35 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{{title}}</title>
+    <title>{{title}}</title> <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+
+    <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
+
+    hello {{{user.facebook.name}}}
+
+    <ul>
+      <li><a href="/new">add a reservation</a></li>
+    </ul>
+
+    <ul>
+      {{#if user}}
+      <li><a href="/logout">Logout</a></li>
+      {{/if}}
+    </ul>
+
     {{{body}}}
   </body>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBktahDyXxT0XCyMnbgb0yftsMmJ4rlN1k&callback=initMap"></script>
+
+  <script type="text/javascript">
+
+  </script>
+
 </html>

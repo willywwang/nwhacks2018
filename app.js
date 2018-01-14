@@ -4,17 +4,39 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var flash = require('connect-flash');
 var mongoose = require('mongoose');
+var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
+var passport = require('passport');
+var session = require('express-session');
+var configDB = require('./config/database.js');
+
+require('./config/passport')(passport); // pass passport for configuration
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
 
-mongoose.connect('mongodb://admin:admin@ds255767.mlab.com:55767/tablefortwo')
+//mongoose.connect('mongodb://admin:admin@ds255767.mlab.com:55767/tablefortwo')
+mongoose.connect(configDB.url); // connect to our database
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
+
+// required for passport
+app.use(session({
+    secret: 'ilovescotchscotchyscotchscotch', // session secret
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
