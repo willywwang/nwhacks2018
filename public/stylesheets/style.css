@@ -108,8 +108,8 @@ p {
 	display: block;
 	position: relative;
 	float: right;
-	margin-right: 2%;
-	margin-top: 2%;
+	margin-right: 5%;
+	margin-top: -3%;
 	top: -100%;
 	vertical-align: center;
 	align-content: center;
@@ -121,19 +121,30 @@ p {
 	box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
 	box-sizing: border-box;
 	margin-top: -3.4px;	
+	height: 5vh;
+	width: 5vh;
+	
 }
 
 #search-bar {
-	border: 1px solid transparent;
+	border: 2px solid transparent;
 	border-radius: 2px;
 	box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
 	box-sizing: border-box;
 	font-family: Roboto;
+<<<<<<< HEAD
 	padding: 0 11px 0 13px;
 	font-size: 15px;
 	font-weight: 300;
 	height: 29px;
 	width: 250px;
+=======
+    padding: 0 11px 0 13px;
+    font-size: 15px;
+    font-weight: 300;
+    height: 5vh;
+    width: 25vw;
+>>>>>>> 3ee6e7b54c34b5ff376c6099bfbf404e146bb587
 }
 
 #iconwrapper {
@@ -156,6 +167,12 @@ p {
 	-moz-border-radius: 0;
 	border-radius: 0;
 	background-color: #658db3;
+}
+
+.btn {
+	
+	height: 50px;
+	width: 80px;
 }
 
 @media only screen and (max-width: 500px) {
