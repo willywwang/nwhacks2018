@@ -49,12 +49,63 @@ router.get('/user', function(req, res) {
   });
 });
 
+router.get('/posts', function(req, res) {
+  Post.find(function(err, posts) {
+    if (req.user) {
+      Post.find({ userID: req.user.facebook.id }, function(err, userPosts) {
+        var notifs = 0;
+        var notifsPosts = [];
+        for (var i = 0; i < userPosts.length; i++) {
+          if (userPosts[i].isSomeoneGoing) {
+            notifsPosts.push(userPosts[i]);
+            notifs++;
+          }
+        }
+
+        res.send({posts: posts,
+          userPosts: userPosts,
+          notifs: notifs,
+          notifsPosts: notifsPosts});
+      });
+    } else {
+      res.send({posts: posts});
+    }
+  })
+});
+
 router.get('/login', function(req, res) {
   res.render('login', { title: 'Express'});
 });
 
 router.get('/signup', function(req, res) {
   res.render('signup', { title: 'Express'});
+});
+
+router.get('/new', function(req, res) {
+  console.log(req.user);
+
+
+  var offset = req.body.offset;
+  var lat = req.body.lat;
+  var lon = req.body.lon;
+  var radius = req.body.radius;
+
+  var url = 'https://api.yelp.com/v3/businesses/search?categories=restaurants' + '&latitude=' + lat + '&longitude=' + lon + '&radius=' + radius + '&sort_by=distance&limit=50&offset=' + offset;
+
+  var options = {
+    method: 'GET',
+    url: url,
+    headers: {
+      'Authorization': 'Bearer 5oCSXV5l9pxICrBuXzbYrw4tUsMm_QGx0lF-4T1_GTZOHK8opKnoTI-UVn-XjqRQ5SxWcXqa_Ihbw4CnL8DF4fCyZJAorGpngb_en8MR9MD-f4n6j6HnNosnIhlbWnYx'
+    }
+  };
+
+  request(options, function(error,response,body){
+    res.render('new', {
+      title: 'You are going... ', user: req.user, places: body
+    });
+
+  });
 });
 
 // route for showing the profile page
@@ -90,11 +141,13 @@ router.post('/add-outing', function(req, res) {
       geocoder.geocode(req.body.address, function(err, data) {
         var post = {
           address: req.body.address,
+          name: req.body.name,
           coords: { lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng },
           startTime: req.body.startTime,
           endTime: req.body.endTime,
           userID  : req.user.facebook.id,
           userName: req.user.facebook.name,
+          personGoingEmail: req.user.facebook.email,
           isSomeoneGoing: false
         };
 
@@ -138,6 +191,7 @@ router.post('/join/:postID/:joinerName/:joinerID/:joinerEmail', function(req, re
       doc.personGoing = req.params.joinerName;
       doc.personGoingID = req.params.joinerID;
       doc.personGoingEmail = req.params.joinerEmail;
+
       doc.save();
     }
 
@@ -188,6 +242,31 @@ router.post('/data', function(req, res) {
   });
 
 });
+
+// route that cointains the restaurant data
+router.get('/data2', function(req, res) {
+
+  var offset = 1;//req.body.offset;
+  var lat = 49.2827;//req.body.lat;
+  var lon = -123.1207;//req.body.lon;
+  var radius = 10000;//req.body.radius;
+
+  var url = 'https://api.yelp.com/v3/businesses/search?categories=restaurants' + '&latitude=' + lat + '&longitude=' + lon + '&radius=' + radius + '&sort_by=distance&limit=50&offset=' + offset;
+
+  var options = {
+    method: 'GET',
+    url: url,
+    headers: {
+      'Authorization': 'Bearer 5oCSXV5l9pxICrBuXzbYrw4tUsMm_QGx0lF-4T1_GTZOHK8opKnoTI-UVn-XjqRQ5SxWcXqa_Ihbw4CnL8DF4fCyZJAorGpngb_en8MR9MD-f4n6j6HnNosnIhlbWnYx'
+    }
+  };
+
+  request(options, function(error,response,body){
+    res.send(body);
+  });
+
+});
+
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {

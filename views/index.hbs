@@ -22,6 +22,7 @@
 	<script src="javascripts/app.js"></script>
 	<script type="text/javascript" src='javascripts/controllers/main.controller.js'></script>
 	<script type="text/javascript" src='javascripts/controllers/modal.controller.js'></script>
+	<script type="text/javascript" src='javascripts/no.space.filter.js'></script>
 	<base href="/">
 </head>
 <body ng-app="app">
@@ -32,3 +33,115 @@
 	</div>
 </body>
 </html>
+<!-- =======
+
+  <div class="row">
+      <div id="show-map"class="col"></div>
+    </div>
+    <div class="col">
+    </div>
+  </div>
+
+{{#each notifsPosts}}
+  <div class="">
+    {{this.personGoing}} wants to eat with you!
+    <form action="/accept/{{this.personGoingEmail}}/{{this._id}}" method="POST">
+      <img class='profile-img' src="http://graph.facebook.com/{{this.personGoingID}}/picture?type=square" alt="">
+      <a href="https://www.facebook.com/app_scoped_user_id/{{this.personGoingID}}">View thier facebook profile</a>
+      <button type="submit">Accept!</button>
+    </form>
+    <form action="/delete/{{this.personGoingEmail}}" method="POST">
+      <button type="submit">Delete notification</button>
+    </form>
+  </div>
+{{/each}}
+
+<br> -->
+
+<!--<p id="user-name">{{ user.facebook.name }}</p>
+<p id="user-id">{{ user.facebook.id }}</p>
+<p id="user-email">{{ user.facebook.email }}</p> -->
+
+
+<!-- <script type="text/javascript">
+//  var userName = document.getElementById('user-name').innerHTML;
+//  var userID = document.getElementById('user-id').innerHTML;
+//  var userEmail = document.getElementById('user-email').innerHTML;
+
+  var posts = {{{ posts }}};
+
+  console.log(posts);
+
+  function initMap() {
+    var uluru = {
+      lat: -25.363,
+      lng: 131.044
+    };
+    var map = new google.maps.Map(document.getElementById('show-map'), {
+      zoom: 10,
+      center: uluru
+    });
+    var marker = new google.maps.Marker({
+      position: uluru,
+      map: map
+    });
+
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+
+        map.setCenter(pos);
+      }, function() {
+        handleLocationError(true, infoWindow, map.getCenter());
+      });
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+
+    for (var i = 0; i < posts.length; i++) {
+      addMarker(posts[i]);
+    }
+
+    // adds a marker as well as an info box containing the rating of the spot
+    function addMarker(post) {
+
+      var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h4 id="firstHeading" class="firstHeading"><img class="profile-img" src="http://graph.facebook.com/'+ post.userID +'/picture?type=square" alt="">'+ post.userName + ' is going to ' + post.name + ' at ' + post.timeGoing + '</h4>'+
+      '<div id="bodyContent">'+
+      '<form action="/join/' + post._id + '/' + post.userName +'/'+ post.userID + '/' + post.userEmail + '" method="POST">'+
+        '<input class="btn btn-warning" type="submit" name="upvote" value="Join them!"/></form><br>'+
+      '(posted on '+ post.date +').</p>'+
+      '</div>'+
+      '</div>';
+
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+      var icon = {
+        url: "https://i.imgur.com/2b7gHaQ.png", // url
+        scaledSize: new google.maps.Size(50, 50)
+      };
+
+      var marker = new google.maps.Marker({
+         position: post.coords,
+         map: map,
+         icon: icon
+      });
+
+      marker.addListener('click', function() {
+        infowindow.open(map, marker);
+      });
+    }
+
+  }
+
+</script>
+>>>>>>> origin/backend -->

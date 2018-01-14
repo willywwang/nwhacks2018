@@ -11,12 +11,15 @@ angular.module('app')
 		$scope.coords = {};
 		$scope.search = "";
 		$scope.imageUrl = "";
+		$scope.currentState = 0;
+		$scope.posts = {};
+		$scope.notifsPosts = [];
 		
 		function initPage() {
 			$scope.activeLink = 'restaurant';
 
 			var mapOptions = {
-				zoom: 17,
+				zoom: 14,
 				center: new google.maps.LatLng(49.2807513, -123.1152712),
 				mapTypeId: google.maps.MapTypeId.ROADMAP,
 				disableDefaultUI: true,
@@ -99,7 +102,7 @@ angular.module('app')
 
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(function (position) {
-					var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+					var initialLocation = new google.maps.LatLng(49.2807513, -123.1152712);
 					$scope.coords.lat = initialLocation.lat();
 					$scope.coords.lng = initialLocation.lng();
 					$scope.map.setCenter(initialLocation);
@@ -109,8 +112,6 @@ angular.module('app')
 						map: $scope.map,
 						icon: 'http://www.robotwoods.com/dev/misc/bluecircle.png'
 					});
-
-					$scope.loadRestaurantMarkers();
 				});
 			}
 
@@ -121,11 +122,17 @@ angular.module('app')
 
 				if (Object.keys($scope.user).length > 0) {
 					$scope.isLoggedIn = true;
-					console.log($scope.user);
 					$scope.imageUrl = 'http://graph.facebook.com/' + $scope.user.data.facebook.id + '/picture?type=square';
 				}
-			}, function(err) {
 
+				$http.get('/posts').success(function(data) {
+					$scope.posts = data.posts
+					$scope.loadMarkers();
+					$scope.notifsPosts = data.notifsPosts;
+				}, function(err) {
+					console.log(err);
+				});
+			}, function(err) {
 				console.log(err);
 			});
 		}
@@ -161,6 +168,9 @@ angular.module('app')
 								},
 								imageUrl: function() {
 									return $scope.imageUrl;
+								},
+								notifsPosts: function() {
+									return $scope.notifsPosts;
 								}
 							}
 						});
@@ -200,16 +210,17 @@ angular.module('app')
 			return false;
 		}
 
-		$scope.loadRestaurantMarkers = function() {
+		$scope.loadMarkers = function() {
 			$scope.clearMarkers();
-			var location = $scope.map.getCenter();
+			if ($scope.currentState == 1) {
+				var location = $scope.map.getCenter();
 
-			var request = {
-				lat: $scope.coords.lat,
-				lon: $scope.coords.lng,
-				radius: 15000,
-				offset: 0
-			};
+				var request = {
+					lat: $scope.coords.lat,
+					lon: $scope.coords.lng,
+					radius: 15000,
+					offset: 0
+				};
 
 
 			//TODO: avoid callback hell - also when there aren't 100 restaurants
@@ -253,13 +264,14 @@ angular.module('app')
 											},
 											imageUrl: function() {
 												return $scope.imageUrl;
+											},
+											notifsPosts: function() {
+												return $scope.notifsPosts;
 											}
 										}
 									});
 								});
 							});
-
-							console.log($scope.markers);
 
 							$scope.filteredRestaurants = $scope.restaurants.slice(0, 25);
 						}, function(err) {
@@ -274,46 +286,114 @@ angular.module('app')
 			}, function(err) {
 				console.log(err);
 			});
-		}
-
-		$scope.openSignInModal = function() {
-			console.log($scope.user);
-			$uibModal.open({
-				templateUrl: 'signin.template.html',
-				controller: 'modalController',
-				resolve: {
-					selectedRestaurant: function() {
-						return $scope.selectedRestaurant;
-					},
-					isLoggedIn: function() {
-						return $scope.isLoggedIn;
-					},
-					user: function() {
-						return $scope.user;
-					},
-					imageUrl: function() {
-						return $scope.imageUrl;
-					}
-				}
-			})
-		}
-
-
-		$scope.getActiveMenuLinkClass = function(path) {
-			if (!path) {
-				return '';
+		} else {
+			console.log($scope.posts);
+			for (var i = 0; i < $scope.posts.length; i++) {
+				addMarker($scope.posts[i]);
 			}
+		}
+	}
 
-			return ($scope.activeLink === path) ? 'active' : '';
-		};
+	function addMarker(post) {
+		var email = ($scope.user.data) ? $scope.user.data.facebook.email : "wang.yw.william@gmail.com"
+		var contentString = '<div id="content">'+
+		'<div id="siteNotice">'+
+		'</div>'+
+		'<h4 id="firstHeading" class="firstHeading"><img class="profile-img" src="http://graph.facebook.com/'+ post.userID +'/picture?type=square" alt="">&nbsp;'+
+		post.userName + ' is going to ' + post.address + ' from ' + post.startTime + ' to ' + post.endTime +'</h4>'+
+		'<div id="bodyContent" ng-if="isLoggedIn">'+
+		'<form action="/join/' + post._id + '/' + post.userName +'/'+ post.userID + '/' + email + '" method="POST">'+
+		'<input class="btn btn-warning" type="submit" name="upvote" value="Join them!"/></form><br>'+
+		'(posted on '+ post.date +').</p>'+
+		'</div>'+
+		'</div>';
 
-		$scope.openRestaurantList = function() {
-			$scope.activeLink = 'restaurant';
-		};
+		var infowindow = new google.maps.InfoWindow({
+			content: contentString
+		});
 
-		$scope.openPeopleList = function() {
-			$scope.activeLink = 'user';
-		};
+		var key = post.coords.lat.toString() + post.coords.lng.toString();
 
-		initPage();
-	}]);
+		$scope.markers[key] = new google.maps.Marker({
+			position: new google.maps.LatLng(post.coords.lat, post.coords.lng),
+			map: $scope.map
+		});
+
+		$scope.markers[key].addListener('click', function() {
+			infowindow.open($scope.map, $scope.markers[key]);
+		});
+	}
+
+	$scope.switchView = function() {
+		$scope.currentState = ($scope.currentState == 0) ? 1 : 0;
+		$scope.loadMarkers();
+	}
+
+	$scope.openSignInModal = function() {
+		console.log($scope.user);
+		$uibModal.open({
+			templateUrl: 'signin.template.html',
+			controller: 'modalController',
+			resolve: {
+				selectedRestaurant: function() {
+					return $scope.selectedRestaurant;
+				},
+				isLoggedIn: function() {
+					return $scope.isLoggedIn;
+				},
+				user: function() {
+					return $scope.user;
+				},
+				imageUrl: function() {
+					return $scope.imageUrl;
+				},
+				notifsPosts: function() {
+					return $scope.notifsPosts;
+				}
+			}
+		})
+	}
+
+	$scope.openModal = function() {
+		$uibModal.open({
+			templateUrl: 'post.template.html',
+			controller: 'modalController',
+			resolve: {
+				selectedRestaurant: function() {
+					return $scope.selectedRestaurant;
+				},
+				isLoggedIn: function() {
+					return $scope.isLoggedIn;
+				},
+				user: function() {
+					return $scope.user;
+				},
+				imageUrl: function() {
+					return $scope.imageUrl;
+				},
+				notifsPosts: function() {
+					return $scope.notifsPosts;
+				}
+			}
+		})
+	}
+
+
+	$scope.getActiveMenuLinkClass = function(path) {
+		if (!path) {
+			return '';
+		}
+
+		return ($scope.activeLink === path) ? 'active' : '';
+	};
+
+	$scope.openRestaurantList = function() {
+		$scope.activeLink = 'restaurant';
+	};
+
+	$scope.openPeopleList = function() {
+		$scope.activeLink = 'user';
+	};
+
+	initPage();
+}]);
