@@ -111,13 +111,16 @@ p {
 	margin-right: 2%;
 	margin-top: 2%;
 	top: -100%;
+	vertical-align: center;
+	align-content: center;
 }
 
 #filter-icon {
 	border: 1px solid transparent;
 	border-radius: 2px;
 	box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
-	box-sizing: border-box;	
+	box-sizing: border-box;
+	margin-top: -2px;	
 }
 
 #search-bar {
