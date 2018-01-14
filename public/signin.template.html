@@ -1,16 +1,14 @@
-<div class="modal-header">
-	<h2 ng-if="!isLoggedIn" class="modal-title">Sign In</h2>
-	<h2 ng-if="isLoggedIn" class="modal-title">Profile</h2>
-</div>
 <div class="modal-body">
-	<div ng-if="isLoggedIn">
-		<img class='profile-img' src="{{'http://graph.facebook.com/' + user.facebook.id + '/picture?type=square" alt=""> {{user.facebook.email}}
+	<div style="text-align:center;">
+		<img id="icon" class='profile-img' ng-src="{{imageUrl}}" alt="">&nbsp;
+		<div ng-if="isLoggedIn">
+			<h2>{{user.data.facebook.name}}</h2>
+			<h4>{{user.data.facebook.email}}</h4>
+		</div>
+		<a ng-if="!isLoggedIn" href="javascript:void(0)" class="btn btn-primary" ng-click="login()">Log in with Facebook</a>
 	</div>
-	<a ng-if="!isLoggedIn" href="javascript:void(0)" class="btn btn-primary" ng-click="login()">Log in with Facebook</a>
-	<ul ng-if="isLoggedIn">
-		<li><a href="/logout">Logout</a></li>
-	</ul>
 </div>
 <div class="modal-footer">
-	<input type="close" value="Close" ng-click="close()" class="btn btn-primary" style="width:15%"/>
+	<input type="logout" value="Logout" ng-click="logout()" ng-if="isLoggedIn" class="btn btn-primary" style="width: 15%"/>
+	<input type="close" value="Close" ng-click="close()" class="btn btn-default" style="width:15%"/>
 </div>

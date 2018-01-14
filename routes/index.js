@@ -31,6 +31,7 @@ router.get('/', function(req, res, next) {
               notifs++;
             }
           }
+
           res.render('index', { title: 'Express', user: req.user, posts: JSON.stringify(posts),
             userPosts: JSON.stringify(userPosts), notifs: notifs, notifsPosts: notifsPosts, profilePic: posterImageUrl });
         }
@@ -40,6 +41,12 @@ router.get('/', function(req, res, next) {
     }
   });
 
+});
+
+router.get('/user', function(req, res) {
+    res.send({
+        data: req.user
+    });
 });
 
 router.get('/login', function(req, res) {

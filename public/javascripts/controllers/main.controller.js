@@ -10,6 +10,7 @@ angular.module('app')
 		$scope.markers = {};
 		$scope.coords = {};
 		$scope.search = "";
+		$scope.imageUrl = "";
 		
 		function initPage() {
 			$scope.activeLink = 'restaurant';
@@ -148,6 +149,21 @@ angular.module('app')
 					$scope.loadRestaurantMarkers();
 				});
 			}
+
+			$scope.imageUrl = '/resources/usericon.png';
+
+			$http.get('/user').success(function(data) {
+				$scope.user = data;
+
+				if (Object.keys($scope.user).length > 0) {
+					$scope.isLoggedIn = true;
+					console.log($scope.user);
+					$scope.imageUrl = 'http://graph.facebook.com/' + $scope.user.data.facebook.id + '/picture?type=square';
+				}
+			}, function(err) {
+
+				console.log(err);
+			});
 		}
 
 		$scope.$watch("search", function(newValue, oldValue) {
@@ -291,6 +307,7 @@ angular.module('app')
 		}
 
 		$scope.openSignInModal = function() {
+			console.log($scope.user);
 			$uibModal.open({
 				templateUrl: 'signin.template.html',
 				controller: 'modalController',
@@ -303,6 +320,9 @@ angular.module('app')
 					},
 					user: function() {
 						return $scope.user;
+					},
+					imageUrl: function() {
+						return $scope.imageUrl;
 					}
 				}
 			})

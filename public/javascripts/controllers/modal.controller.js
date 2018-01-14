@@ -1,16 +1,17 @@
 angular.module('app')
-.controller('modalController', ['selectedRestaurant', 'isLoggedIn', 'user', '$scope', '$rootScope','$uibModal', '$uibModalInstance', '$http',
-	function(selectedRestaurant, isLoggedIn, user, $scope, $rootScope, $uibModal, $uibModalInstance, $http) {
+.controller('modalController', ['selectedRestaurant', 'isLoggedIn', 'user', 'imageUrl', '$scope', '$rootScope','$uibModal', '$uibModalInstance', '$http',
+	function(selectedRestaurant, isLoggedIn, user, imageUrl, $scope, $rootScope, $uibModal, $uibModalInstance, $http) {
 		$scope.didUserSubmit = false;
 		$scope.showErrors = false;
 		$scope.showSuccess = false;
 		$scope.reservationError = "";
 		$scope.startTime = null;
 		$scope.endTime = null;
-		$scope.user = null;
-		$scope.isLoggedIn = false;
+		$scope.user = user;
+		$scope.isLoggedIn = isLoggedIn;
 		$scope.noUsers = true;
 		$scope.users = [];
+		$scope.imageUrl = imageUrl;
 
 		$scope.restaurant = selectedRestaurant;
 
@@ -69,6 +70,16 @@ angular.module('app')
 
 		$scope.login = function() {
 			$scope.authFacebook();
+		}
+
+		$scope.logout = function() {
+			$http.get('/logout').success(function(data) {
+				$scope.isLoggedIn = false;
+				$scope.imageUrl = '/resources/usericon.png';
+				// silently pass
+			}, function(err) {
+				console.log(err);
+			});
 		}
 
 		$scope.loadUsers();
