@@ -19,18 +19,15 @@ a {
 
 #search {
 	display: block;
-	height: 3%;
-	width: 50%;
+	margin-left: 25%;
 	margin-top: 5%;
-	margin-left: auto;
-	margin-right: auto;
-	background-color: white;
-	outline: 1px solid black;
 }
 
-#search p {
-	margin-left: 10%;
-	position: center;
+#filter {
+	width: 8%;
+	display: block;
+	float: left;
+	margin-right: 2%;
 }
 
 .row {
