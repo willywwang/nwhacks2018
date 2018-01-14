@@ -194,6 +194,9 @@ angular.module('app')
 								},
 								user: function() {
 									return $scope.user;
+								},
+								imageUrl: function() {
+									return $scope.imageUrl;
 								}
 							}
 						});
@@ -283,6 +286,9 @@ angular.module('app')
 											},
 											user: function() {
 												return $scope.user;
+											},
+											imageUrl: function() {
+												return $scope.imageUrl;
 											}
 										}
 									});

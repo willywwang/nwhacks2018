@@ -44,9 +44,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/user', function(req, res) {
-    res.send({
-        data: req.user
-    });
+  res.send({
+    data: req.user
+  });
 });
 
 router.get('/login', function(req, res) {
@@ -99,9 +99,17 @@ router.post('/add-outing', function(req, res) {
         };
 
         var newPost = new Post(post);
-        newPost.save();
+        console.log('p', post);
+        console.log('np',newPost);
+        newPost.save(function(err) {
+          if (err) {
+            console.log(err);
+            return res.send({state:'failure'});
+          }
 
-        res.send({state: 'success'});
+          // if successful, return the new user
+          return res.send({state: 'success'})
+        });
       });
     } else {
       console.log("You need to sign in");

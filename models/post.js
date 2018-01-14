@@ -4,8 +4,8 @@ var Schema = mongoose.Schema;
 var postSchema = new Schema({
   address: String,
   coords: { lat: Number, lng: Number },
-  startTime: Date,
-  endTime: Date,
+  startTime: String,
+  endTime: String,
   userID: Number,
   userName: String,
   isSomeoneGoing: Boolean,
