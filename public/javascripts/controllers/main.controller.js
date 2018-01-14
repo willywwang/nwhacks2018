@@ -1,6 +1,8 @@
 angular.module('app')
 .controller('mainController', ['$scope', '$rootScope', '$http', '$window', '$uibModal',
 	function($scope, $rootScope, $http, $window, $uibModal) {
+		$scope.restaurants = [];
+		
 		function initPage() {
 			$scope.activeLink = 'restaurant';
 
@@ -151,18 +153,19 @@ angular.module('app')
 						$http.post('/data', request).success(function(data3) {
 							request.offset = 80;
 							$http.post('/data', request).success(function(data4) {
-								var restaurants = data.restaurants;
-								restaurants = restaurants.concat(data1.restaurants);
-								restaurants = restaurants.concat(data2.restaurants);
-								restaurants = restaurants.concat(data3.restaurants);
-								restaurants = restaurants.concat(data4.restaurants);
+								$scope.restaurants = data.restaurants;
+								$scope.restaurants = $scope.restaurants.concat(data1.restaurants);
+								$scope.restaurants = $scope.restaurants.concat(data2.restaurants);
+								$scope.restaurants = $scope.restaurants.concat(data3.restaurants);
+								$scope.restaurants = $scope.restaurants.concat(data4.restaurants);
+								
+								$scope.restaurants = $scope.restaurants.map(r => r.restaurant);
 
-								restaurants.forEach(function(restaurant) {
-									var newRestaurant = restaurant.restaurant;
+								$scope.restaurants = $scope.restaurants.forEach(function(restaurant) {
 									$scope.marker = new google.maps.Marker({
 										map: $scope.map,
-										position: new google.maps.LatLng(newRestaurant.location.latitude, newRestaurant.location.longitude),
-										title: newRestaurant.name
+										position: new google.maps.LatLng(restaurant.location.latitude, restaurant.location.longitude),
+										title: restaurant.name
 									});
 								});
 							}, function(err) {

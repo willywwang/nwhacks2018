@@ -23,7 +23,12 @@
 			<button class="btn btn-default outline-black" ng-class="getActiveMenuLinkClass('user')" ng-click="openPeopleList()"><i class="fa fa-user" aria-hidden="true"></i></button>
 		</div>
 
-		<div id="list"></div>
+		<div id="list">
+			{{restaurant.name}}
+			<div ng-repeat="restaurant in restaurants track by $index">
+			{{restaurant.name}}
+			</div>
+		</div>
 	</div>
 </div>
 
