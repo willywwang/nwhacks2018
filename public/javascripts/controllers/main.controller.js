@@ -19,7 +19,7 @@ angular.module('app')
 			$scope.activeLink = 'restaurant';
 
 			var mapOptions = {
-				zoom: 14,
+				zoom: 15,
 				center: new google.maps.LatLng(49.2807513, -123.1152712),
 				mapTypeId: google.maps.MapTypeId.ROADMAP,
 				disableDefaultUI: true,

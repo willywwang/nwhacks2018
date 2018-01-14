@@ -223,9 +223,9 @@ router.post('/accept/:joinerEmail/:postID', function(req, res) {
 router.post('/data', function(req, res) {
 
   var offset = req.body.offset;
-  var lat = req.body.lat;
-  var lon = req.body.lon;
-  var radius = req.body.radius;
+  var lat = 49.2807513;
+  var lon = -123.1152712;
+  var radius = 1000;
 
   var url = 'https://api.yelp.com/v3/businesses/search?categories=restaurants' + '&latitude=' + lat + '&longitude=' + lon + '&radius=' + radius + '&sort_by=distance&limit=50&offset=' + offset;
 
@@ -249,7 +249,7 @@ router.get('/data2', function(req, res) {
   var offset = 1;//req.body.offset;
   var lat = 49.2827;//req.body.lat;
   var lon = -123.1207;//req.body.lon;
-  var radius = 10000;//req.body.radius;
+  var radius = 1000;//req.body.radius;
 
   var url = 'https://api.yelp.com/v3/businesses/search?categories=restaurants' + '&latitude=' + lat + '&longitude=' + lon + '&radius=' + radius + '&sort_by=distance&limit=50&offset=' + offset;
 
