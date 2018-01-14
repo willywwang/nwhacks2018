@@ -1,11 +1,15 @@
 angular.module('app')
 .controller('mainController', ['$scope', '$rootScope', '$http', '$window', '$uibModal',
 	function($scope, $rootScope, $http, $window, $uibModal) {
+		$scope.user = null;
+		$scope.isLoggedIn = false;
 		$scope.restaurants = [];
 		$scope.filteredRestaurants = [];
 		$scope.selectedRestaurant = {};
+		$scope.completeSetRestaurants = [];
 		$scope.markers = {};
 		$scope.coords = {};
+		$scope.search = "";
 		
 		function initPage() {
 			$scope.activeLink = 'restaurant';
@@ -141,12 +145,80 @@ angular.module('app')
 						icon: 'http://www.robotwoods.com/dev/misc/bluecircle.png'
 					});
 
-					loadRestaurantMarkers();
+					$scope.loadRestaurantMarkers();
 				});
 			}
 		}
 
-		function loadRestaurantMarkers() {
+		$scope.$watch("search", function(newValue, oldValue) {
+			if (newValue !== oldValue) {
+				$scope.clearMarkers();
+				$scope.restaurants = $scope.searchCriteriaMatch($scope.completeSetRestaurants);
+
+				$scope.restaurants.forEach(function(restaurant) {
+					$scope.markers[restaurant.name] = new google.maps.Marker({
+						map: $scope.map,
+						position: new google.maps.LatLng(restaurant.coordinates.latitude, restaurant.coordinates.longitude),
+						title: restaurant.name
+					});
+
+					google.maps.event.addListener($scope.markers[restaurant.name], 'click', function () {
+						var selectedRestaurantName = restaurant.name;
+						$scope.selectedRestaurant = $scope.completeSetRestaurants.filter(r => r.name == selectedRestaurantName.trim())[0];
+
+						$uibModal.open({
+							templateUrl: 'restaurant.template.html',
+							controller: 'modalController',
+							resolve: {
+								selectedRestaurant: function() {
+									return $scope.selectedRestaurant;
+								},
+								isLoggedIn: function() {
+									return $scope.isLoggedIn;
+								},
+								user: function() {
+									return $scope.user;
+								}
+							}
+						});
+					});
+				});
+
+				$scope.filteredRestaurants = $scope.restaurants.slice(0, 25);
+			}
+		});
+
+		$scope.clearMarkers = function() {
+			Object.keys($scope.markers).forEach(function(key) {
+				$scope.markers[key].setMap(null);
+			});
+		};
+
+		$scope.searchCriteriaMatch = function (items) {
+			if (!$scope.search || $scope.search.length < 1) {
+				return items;
+			}
+
+			$scope.search = $scope.search.toLowerCase();
+
+			items = items.filter(i => i.name.toLowerCase().includes($scope.search) ||
+				doesCategoriesIncludeSearchCriteria(i.categories));
+
+			return items;
+		};
+
+		function doesCategoriesIncludeSearchCriteria(categories) {
+			categories.forEach(function(category) {
+				if (category.title.toLowerCase().includes($scope.search)) {
+					return true;
+				}
+			})
+
+			return false;
+		}
+
+		$scope.loadRestaurantMarkers = function() {
+			$scope.clearMarkers();
 			var location = $scope.map.getCenter();
 
 			var request = {
@@ -165,12 +237,14 @@ angular.module('app')
 					$http.post('/data', request).success(function(data2) {
 						request.offset = 150;
 						$http.post('/data', request).success(function(data3) {	
-							$scope.restaurants = data.businesses;
-							$scope.restaurants = $scope.restaurants.concat(data1.businesses);
-							$scope.restaurants = $scope.restaurants.concat(data2.businesses);
-							$scope.restaurants = $scope.restaurants.concat(data3.businesses);
+							$scope.completeSetRestaurants = data.businesses;
+							$scope.completeSetRestaurants = $scope.restaurants.concat(data1.businesses);
+							$scope.completeSetRestaurants = $scope.restaurants.concat(data2.businesses);
+							$scope.completeSetRestaurants = $scope.restaurants.concat(data3.businesses);
 
-							$scope.restaurants.forEach(function(restaurant) {
+							$scope.restaurants = $scope.completeSetRestaurants;
+
+							$scope.completeSetRestaurants.forEach(function(restaurant) {
 								$scope.markers[restaurant.name] = new google.maps.Marker({
 									map: $scope.map,
 									position: new google.maps.LatLng(restaurant.coordinates.latitude, restaurant.coordinates.longitude),
@@ -179,7 +253,7 @@ angular.module('app')
 
 								google.maps.event.addListener($scope.markers[restaurant.name], 'click', function () {
 									var selectedRestaurantName = restaurant.name;
-									$scope.selectedRestaurant = $scope.restaurants.filter(r => r.name == selectedRestaurantName.trim())[0];
+									$scope.selectedRestaurant = $scope.completeSetRestaurants.filter(r => r.name == selectedRestaurantName.trim())[0];
 
 									$uibModal.open({
 										templateUrl: 'restaurant.template.html',
@@ -187,11 +261,19 @@ angular.module('app')
 										resolve: {
 											selectedRestaurant: function() {
 												return $scope.selectedRestaurant;
+											},
+											isLoggedIn: function() {
+												return $scope.isLoggedIn;
+											},
+											user: function() {
+												return $scope.user;
 											}
 										}
 									});
 								});
 							});
+
+							console.log($scope.markers);
 
 							$scope.filteredRestaurants = $scope.restaurants.slice(0, 25);
 						}, function(err) {
@@ -206,6 +288,24 @@ angular.module('app')
 			}, function(err) {
 				console.log(err);
 			});
+		}
+
+		$scope.openSignInModal = function() {
+			$uibModal.open({
+				templateUrl: 'signin.template.html',
+				controller: 'modalController',
+				resolve: {
+					selectedRestaurant: function() {
+						return $scope.selectedRestaurant;
+					},
+					isLoggedIn: function() {
+						return $scope.isLoggedIn;
+					},
+					user: function() {
+						return $scope.user;
+					}
+				}
+			})
 		}
 
 

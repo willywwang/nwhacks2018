@@ -25,17 +25,22 @@
 		</div>
 	</div>
 	<div class="row" style="height:25%;margin-bottom:25px">
-		<div class="col-xs-12 col-md-6">
+		<div class="col-xs-12 col-md-6" style="text-align: center;">
 			<h4 style="text-align: center;font-family:roboto;">
 				Find a User
 			</h4>
+			<hr/>
+			<h5 ng-if="noUsers">No users found</h5>
+			<div ng-if="!noUsers" ng-repeat="user in users track by $index">
+				{{user.name}}
+			</div>
 		</div>
 		<div class="col-xs-12 col-md-6">
 			<h4 style="text-align: center;font-family: roboto;">
 				Make a Reservation
 			</h4>
-			<br/>
-			<form ng-submit="submit()" ng-hide="showSuccess || didUserSubmit">
+			<hr/>
+			<form ng-submit="submit()" ng-hide="didUserSubmit">
 				<label>Start Time</label>
 				<div class="input-group" moment-picker="startTime" format="HH:mm">
 					<span class="input-group-addon">

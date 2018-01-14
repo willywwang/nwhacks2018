@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
             }
           }
           res.render('index', { title: 'Express', user: req.user, posts: JSON.stringify(posts),
-                                userPosts: JSON.stringify(userPosts), notifs: notifs, notifsPosts: notifsPosts, profilePic: posterImageUrl });
+            userPosts: JSON.stringify(userPosts), notifs: notifs, notifsPosts: notifsPosts, profilePic: posterImageUrl });
         }
       });
     } else {
@@ -48,13 +48,6 @@ router.get('/login', function(req, res) {
 
 router.get('/signup', function(req, res) {
   res.render('signup', { title: 'Express'});
-});
-
-router.get('/new', function(req, res) {
-  console.log(req.user);
-  res.render('new', {
-    title: 'You are going... ', user: req.user
-  });
 });
 
 // route for showing the profile page
@@ -91,7 +84,8 @@ router.post('/add-outing', function(req, res) {
         var post = {
           address: req.body.address,
           coords: { lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng },
-          timeGoing: req.body.timeGoing,
+          startTime: req.body.startTime,
+          endTime: req.body.endTime,
           userID  : req.user.facebook.id,
           userName: req.user.facebook.name,
           isSomeoneGoing: false
@@ -99,13 +93,24 @@ router.post('/add-outing', function(req, res) {
 
         var newPost = new Post(post);
         newPost.save();
+
+        res.send({state: 'success'});
       });
     } else {
       console.log("You need to sign in");
+      res.send({state : 'failure'});
     }
-
-    res.redirect('/');
   });
+
+
+router.get('/post/address/:address', function(req, res) {
+  Post.find({address: req.params.address}, function(err, data) {
+    res.send(data);
+  }, function(err) {
+    console.log(err);
+  });
+});
+
 
 router.post('/join/:postID/:joinerName/:joinerID/:joinerEmail', function(req, res) {
   console.log(req.params.postID);
@@ -155,8 +160,6 @@ router.post('/data', function(req, res) {
 
   var url = 'https://api.yelp.com/v3/businesses/search?categories=restaurants' + '&latitude=' + lat + '&longitude=' + lon + '&radius=' + radius + '&sort_by=distance&limit=50&offset=' + offset;
 
-  console.log(url);
-
   var options = {
     method: 'GET',
     url: url,
@@ -166,7 +169,6 @@ router.post('/data', function(req, res) {
   };
 
   request(options, function(error,response,body){
-    console.log(body);
     res.send(body);
   });
 
@@ -174,7 +176,6 @@ router.post('/data', function(req, res) {
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
-
   // if user is authenticated in the session, carry on
   if (req.isAuthenticated())
     return next();

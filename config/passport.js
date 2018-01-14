@@ -5,7 +5,7 @@ var LocalStrategy    = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 
 // load up the user model
-var User       = require('../models/user');
+var User = require('../models/user');
 
 // load the auth variables
 var configAuth = require('./auth');
@@ -42,7 +42,6 @@ module.exports = function(passport) {
 
     // facebook will send back the token and profile
     function(token, refreshToken, profile, done) {
-
         // asynchronous
         process.nextTick(function() {
 
@@ -52,14 +51,16 @@ module.exports = function(passport) {
                 // if there is an error, stop everything and return that
                 // ie an error connecting to the database
                 if (err)
+                    console.log(err);
                     return done(err);
 
                 // if the user is found, then log them in
                 if (user) {
+                    console.log(user);
                     return done(null, user); // user found, return that user
                 } else {
                     // if there is no user found with that facebook id, create them
-                    var newUser            = new User();
+                    var newUser = new User();
 
                     // set all of the facebook information in our user model
                     newUser.facebook.id    = profile.id; // set the users facebook id
