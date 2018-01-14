@@ -21,9 +21,13 @@ a {
 
 
 #search {
+	z-index: 20;
 	display: block;
-	margin-left: 25%;
-	margin-top: 5%;
+	position: relative;
+	float: right;
+	margin-right: 2%;
+	margin-top: 2%;
+	top: -100%;
 }
 
 .title {
@@ -57,5 +61,6 @@ a {
 }
 
 #map {
+	z-index: 10;
 	height: 100%;
 }
