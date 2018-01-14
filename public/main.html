@@ -1,9 +1,12 @@
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
 <div class="view" ng-controller="mainController">
+	<div class="col-xs-12 hidden-md hidden-lg affix header-phone">
+		<div class="row">
+			<h1>table for two</h1>
+		</div>
+	</div>
+	<div class="col-xs-12 hidden-md hidden-lg empty-space"></div>
 	<div class="col-xs-12 col-sm-7 col-lg-9 view">
 		<div id="map"></div>
-
 		<div id="search">
 
 			<button class="btn btn-default btn-sm hover-grey" id="filter-icon">
@@ -12,7 +15,6 @@
 			<input id="search-bar" type="text" name="search" placeholder="Search">
 		</div>
 
-		<div class="hidden-sm"><h1>TEST</h1></div>
 	</div>
 	<div class="hidden-xs col-sm-5 col-lg-3 view sidebar">
 		<h1 id="title">table for two</h1>
@@ -24,6 +26,5 @@
 
 		<div id="list"></div>
 	</div>
+</div>
 
-</div>
-</div>
