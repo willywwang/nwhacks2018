@@ -3,9 +3,14 @@ Where are you going...
 <div id="map"></div>
 
 <form action="/add-outing" method="POST">
-  <input type="text" placeholder="Restaurant Address" name="address">
+  <input type="text" placeholder="Restaurant Address" id="address-field" name="address">
+  <input type="text" placeholder="Restaurant Name" id="name-field" name="name">
   <input type="text" placeholder="Time" name="timeGoing">
   <button type="submit">Submit</button>
 </form>
 
 <script type="text/javascript" src="/javascripts/map.js"></script>
+<script type="text/javascript">
+  var places = {{{places}}};
+  console.log(places);
+</script>

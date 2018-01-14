@@ -52,9 +52,29 @@ router.get('/signup', function(req, res) {
 
 router.get('/new', function(req, res) {
   console.log(req.user);
-  res.render('new', {
-    title: 'You are going... ', user: req.user
-  });
+
+
+    var offset = 1;//req.body.offset;
+    var lat = 49.2827;//req.body.lat;
+    var lon = -123.1207;//req.body.lon;
+    var radius = 2000;//req.body.radius;
+
+    var url = 'https://api.yelp.com/v3/businesses/search?categories=restaurants' + '&latitude=' + lat + '&longitude=' + lon + '&radius=' + radius + '&sort_by=distance&limit=50&offset=' + offset;
+
+    var options = {
+      method: 'GET',
+      url: url,
+      headers: {
+        'Authorization': 'Bearer 5oCSXV5l9pxICrBuXzbYrw4tUsMm_QGx0lF-4T1_GTZOHK8opKnoTI-UVn-XjqRQ5SxWcXqa_Ihbw4CnL8DF4fCyZJAorGpngb_en8MR9MD-f4n6j6HnNosnIhlbWnYx'
+      }
+    };
+
+    request(options, function(error,response,body){
+    res.render('new', {
+      title: 'You are going... ', user: req.user, places: body
+    });
+
+    });
 });
 
 // route for showing the profile page
@@ -90,6 +110,7 @@ router.post('/add-outing', function(req, res) {
       geocoder.geocode(req.body.address, function(err, data) {
         var post = {
           address: req.body.address,
+          name: req.body.name,
           coords: { lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng },
           timeGoing: req.body.timeGoing,
           userID  : req.user.facebook.id,
@@ -165,6 +186,31 @@ router.get('/data', function(req, res) {
       });
 
 });
+
+// route that cointains the restaurant data
+router.get('/data2', function(req, res) {
+
+  var offset = 1;//req.body.offset;
+  var lat = 49.2827;//req.body.lat;
+  var lon = -123.1207;//req.body.lon;
+  var radius = 10000;//req.body.radius;
+
+  var url = 'https://api.yelp.com/v3/businesses/search?categories=restaurants' + '&latitude=' + lat + '&longitude=' + lon + '&radius=' + radius + '&sort_by=distance&limit=50&offset=' + offset;
+
+  var options = {
+    method: 'GET',
+    url: url,
+    headers: {
+      'Authorization': 'Bearer 5oCSXV5l9pxICrBuXzbYrw4tUsMm_QGx0lF-4T1_GTZOHK8opKnoTI-UVn-XjqRQ5SxWcXqa_Ihbw4CnL8DF4fCyZJAorGpngb_en8MR9MD-f4n6j6HnNosnIhlbWnYx'
+    }
+  };
+
+  request(options, function(error,response,body){
+    res.send(body);
+  });
+
+});
+
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {

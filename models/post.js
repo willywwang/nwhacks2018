@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var postSchema = new Schema({
   address: String,
+  name: String,
   coords: { lat: Number, lng: Number },
   timeGoing: String,
   userID: Number,

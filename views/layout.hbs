@@ -3,8 +3,8 @@
 
 <head>
   <title>{{title}}</title>
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-  <!-- load bootstrap css -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
   <!-- load fontawesome -->
 
@@ -12,6 +12,30 @@
 </head>
 
 <body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#"><b>table for two</b></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <li class="nav-item">
+        <a class="nav-link" href="/new">Add an outing</a>
+      </li>
+        <div class="nav-item">
+          {{#if user}}
+            <img class='profile-img' src="http://graph.facebook.com/{{user.facebook.id}}/picture?type=square" alt="">
+            Welcome, {{{user.facebook.name}}}
+            <a class='nav-link' href='/logout'>Logout</a>
+            <h5>You have {{notifs}} notifications!</h5>
+          {{else}}
+              <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </nav>
 
   <script>
     window.fbAsyncInit = function() {
@@ -35,31 +59,13 @@
     }(document, 'script', 'facebook-jssdk'));
   </script>
 
-  <div class="" style="width: 80%; margin: 0 auto;">
-    <h3><b>TableForTwo</b></h3>
-
-    {{#if user}}
-      <img class='profile-img' src="http://graph.facebook.com/{{user.facebook.id}}/picture?type=square" alt=""> {{{user.facebook.email}}}
-    {{else}}
-      <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
-    {{/if}}
-
-    <ul>
-      <li><a href="/new">Go out!</a></li>
-    </ul>
-
-    <ul>
-      {{#if user}}
-        <li><a href="/logout">Logout</a></li>
-      {{/if}}
-    </ul>
-
-
     {{{body}}}
-  </div>
+
 </body>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBktahDyXxT0XCyMnbgb0yftsMmJ4rlN1k&callback=initMap"></script>
