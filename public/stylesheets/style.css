@@ -216,7 +216,7 @@ p {
 }
 
 .profile-img {
-  border-radius: 50%;
+  border-radius: 5px;
 }
 
 ul {
@@ -248,8 +248,8 @@ ul {
 	
 	#icon {
 		height: 10vh;
-		outline-radius: 5px;
-		outline: 1px solid gray;
+		border-radius: 50%;
+		border: 1.5px solid #606060;
 		
 	}
 	.header-phone {
@@ -299,23 +299,18 @@ ul {
 
 	}
 	
-	/*
 	
-	#horizontal{
-		z-index: 20;
-		overflow: auto;
-		white-space: nowrap;
-		
+	.closebutton {
+		margin-right: 10%;
 	}
 	
-	#horizontal ul li {
-		display: inline-block;
-		text-align: center;
-   
+	.window {
+		height: 80%;
 	}
-	*/
 	
-	#closebutton {
-		margin-right: -5%;
+	.logoutbutton {
+		padding-left: 2%;
+		padding-right: 2%;
 	}
+	
 }
