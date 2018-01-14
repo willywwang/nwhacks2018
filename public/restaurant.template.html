@@ -37,7 +37,7 @@
 			<br/>
 			<form ng-submit="submit()" ng-hide="showSuccess || didUserSubmit">
 				<label>Start Time</label>
-				<div class="input-group" moment-picker="ctrl.timepicker" format="HH:mm">
+				<div class="input-group" moment-picker="startTime" format="HH:mm">
 					<span class="input-group-addon">
 						<i class="fa fa-clock-o"></i>
 					</span>
@@ -45,11 +45,11 @@
 				</div>
 				<br/>
 				<label>End Time</label>
-				<div class="input-group" moment-picker="ctrl.timepicker" format="HH:mm">
+				<div class="input-group" moment-picker="endTime" format="HH:mm">
 					<span class="input-group-addon">
 					<i class="fa fa-clock-o"></i>
 					</span>
-					<input class="form-control" placeholder="Start Time" ng-model="endTime" ng-model-options="{ updateOn: 'blur' }" required>
+					<input class="form-control" placeholder="End Time" ng-model="endTime" ng-model-options="{ updateOn: 'blur' }" required>
 				</div>
 				<br/>
 				<input type="submit" value="Submit" class="btn btn-primary pull-right"/>
