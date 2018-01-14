@@ -135,19 +135,16 @@ angular.module('app')
 			var location = $scope.map.getCenter();
 			console.log(location.lat());
 			console.log(location.lng());
-			// http request here
-			$http({
-				method: 'GET',
-				url: 'https://developers.zomato.com/api/v2.1/search',
-				headers: {'user_key' : '39d7b0047f4d3176f7115db315b09012'},
-				params: {
-					lat: location.lat(),
-					lon: location.lng(),
-					radius: 200
-				}
-			}).then(function (res, err) {
-				console.log(res);
-				console.log(err);
+
+			var request = {
+				lat: location.lat(),
+				lon: location.lng(),
+				radius: 250,
+				offset: 0
+			};
+
+			$http.post('/data', request).success(function(data) {
+				console.log(data);
 
 				$scope.mymarker = new google.maps.Marker({
 					map: $scope.map,
@@ -155,6 +152,8 @@ angular.module('app')
 					position: $scope.map.getCenter(),
 					title: 'xd'
 				});
+			}, function(err) {
+				console.log(err);
 			});
 		}
 
