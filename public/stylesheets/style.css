@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Karla');
+@import url('https://fonts.googleapis.com/css?family=Karla:400,700');
 
 body {
 	width: 100%;
@@ -96,11 +96,16 @@ p {
 
 #list {
 	display:  block;
-	height: 45em;
+	height: 80%;
 	width: 80%;
 	outline: 1px solid gray;
 	margin: 0 auto;
 	background-color: white;
+	font-size: 1.5em;
+	font-family: Karla;
+	text-align: left;
+	padding-left: 2%;
+	padding-top: 4%;
 }
 
 #search {
@@ -120,7 +125,7 @@ p {
 	border-radius: 2px;
 	box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
 	box-sizing: border-box;
-	margin-top: -3.4px;	
+	margin-top: -7px;	
 	height: 5vh;
 	width: 5vh;
 	
@@ -133,7 +138,7 @@ p {
 	box-sizing: border-box;
 	font-family: Roboto;
 	padding: 0 11px 0 13px;
-	font-size: 15px;
+	font-size: 1.5em;
 	font-weight: 300;
 	height: 5vh;
 	width: 25vw;
@@ -195,14 +200,34 @@ p {
 	z-index: 1060 !important;
 }
 
+#name {
+	font-style: bold;
+	display: block;
+	float: left;
+}
+
+#price {
+	margin-top: -1.5em;
+	display: block;
+	float: right;
+	margin-right: 1.5em;
+	text-style: bold;
+}
+
+
 @media only screen and (max-width: 500px) {
+	
+	#map {
+		z-index: 10;
+		height: 95%;
+	}
 	
 	#iconwrapper{
 		top: -23%;
 	}
 	
 	#icon {
-		height: 80px;
+		height: 10vh;
 	}
 	.header-phone {
 		position: fixed;
@@ -224,20 +249,29 @@ p {
 
 	#filter-icon {
 		position: fixed;
-		height: 40px;
-		width: 40px;
-		margin-top: 2%;
-		margin-left: -77%;
+		height: 6.2vh;
+		width: 6.2vh;
+		margin-top: 8%;
+		margin-left: -78%;
 	}
 	#search-bar {
 		position: fixed;
-		height: 40px;
-		width: 80vw;
-		margin-top: 2%;
+		height: 6.2vh;
+		width: 70vw;
+		margin-top: 8%;
 		margin-left: -67%;
 	}
 	
 	#search {
+		z-index: 20;
+		display: block;
+		position: relative;
+		float: right;
+		margin-right: 5%;
 		margin-top: -13%;
+		top: -100%;
+		vertical-align: center;
+		align-content: center;
 
 	}
+}

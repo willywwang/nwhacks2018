@@ -11,7 +11,7 @@
 		<div id="search">
 
 			<button class="btn btn-default btn-default-size btn-sm hover-grey" id="filter-icon">
-				<i class="fa fa-filter" aria-hidden="true"></i>
+				<i class="fa fa-filter fa-2x" aria-hidden="true"></i>
 			</button>
 			<input id="search-bar" type="text" name="search" placeholder="Search">
 		</div>
@@ -20,13 +20,13 @@
 		<h1 id="title">table for two</h1>
 
 		<div class="btn-group padding-bot-small buttons">
-			<button class="btn btn-default btn-default-size outline-black" ng-class="getActiveMenuLinkClass('restaurant')" ng-click="openRestaurantList()" title="Restaurants Nearby"><i class="fa fa-cutlery" aria-hidden="true"></i></button>
-			<button class="btn btn-default btn-default-size outline-black" ng-class="getActiveMenuLinkClass('user')" ng-click="openPeopleList()" title="People Searching Nearby"><i class="fa fa-user" aria-hidden="true"></i></button>
+			<button class="btn btn-default btn-default-size outline-black" ng-class="getActiveMenuLinkClass('restaurant')" ng-click="openRestaurantList()" title="Restaurants Nearby"><i class="fa fa-cutlery fa-2x" aria-hidden="true"></i></button>
+			<button class="btn btn-default btn-default-size outline-black" ng-class="getActiveMenuLinkClass('user')" ng-click="openPeopleList()" title="People Searching Nearby"><i class="fa fa-user fa-2x" aria-hidden="true"></i></button>
 		</div>
 
 		<div id="list">
 			<div ng-repeat="restaurant in filteredRestaurants track by $index">
-			{{restaurant.name}} : {{restaurant.rating}}
+			<div id="one-r"><div id="name">{{restaurant.name}}</div>  <div id="rating">{{restaurant.rating}}</div> <div id="price">{{restaurant.price}}</div></div>
 			</div>
 		</div>
 	</div>
