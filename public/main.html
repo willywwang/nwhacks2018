@@ -24,11 +24,18 @@
 			<button class="btn btn-default btn-default-size outline-black" ng-class="getActiveMenuLinkClass('user')" ng-click="openPeopleList()" title="People Searching Nearby"><i class="fa fa-user fa-2x" aria-hidden="true"></i></button>
 		</div>
 
-		<div id="list">
+		<div id="list"><ul>
 			<div ng-repeat="restaurant in filteredRestaurants track by $index">
-			<div id="one-r"><div id="name">{{restaurant.name}}</div>  <div id="rating">{{restaurant.rating}}</div> <div id="price">{{restaurant.price}}</div></div>
-			</div>
+			<li><div id="one-r"><div id="name">{{restaurant.name}}</div>  <div id="rating">{{restaurant.rating}}</div> <div id="price">{{restaurant.price}}</div></div>
+			</div> </ul>
 		</div>
+	</div>
+	
+	<div class="col-xs-12 hidden-md hidden-lg horizontal"> 
+		<ul>
+			<div ng-repeat="restaurant in filteredRestaurants track by $index">
+			<li><div id="one-r"><div>{{restaurant.name}}</div>  <div id="rating">{{restaurant.rating}}</div> <div id="price">{{restaurant.price}}</div></div>
+			</div> </ul>
 	</div>
 </div>
 
