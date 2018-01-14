@@ -9,6 +9,8 @@ var postSchema = new Schema({
   userName: String,
   isSomeoneGoing: Boolean,
   personGoing: String,
+  personGoingID: Number,
+  personGoingEmail: String,
   date: { type: Date, default: Date.now }
 });
 

@@ -3,23 +3,36 @@ var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var passport = require('passport');
 var geocoder = require('geocoder');
-var request = require("request")
+var request = require("request");
+var sendmail = require('sendmail')();
 
 var Post = require('../models/post');
+var User = require('../models/user');
 
 var router = express.Router();
 
 // get home page route
 router.get('/', function(req, res, next) {
+  var notifsPosts = [];
+
   Post.find(function(err, posts) {
     if (err) return console.error(err);
 
     if (req.user) {
       Post.find({ userID: req.user.facebook.id }, function(err, userPosts) {
+        var posterImageUrl = "http://graph.facebook.com/" + req.user.facebook.id + "/picture?type=square"
         if (err) {
-          res.render('index', { title: 'Express', user: req.user, posts: JSON.stringify(posts) });
+          res.render('index', { title: 'Express', user: req.user, posts: JSON.stringify(posts), profilePic: posterImageUrl });
         } else {
-          res.render('index', { title: 'Express', user: req.user, posts: JSON.stringify(posts), userPosts: JSON.stringify(userPosts) });
+          var notifs = 0;
+          for (var i = 0; i < userPosts.length; i++) {
+            if (userPosts[i].isSomeoneGoing) {
+              notifsPosts.push(userPosts[i]);
+              notifs++;
+            }
+          }
+          res.render('index', { title: 'Express', user: req.user, posts: JSON.stringify(posts),
+                                userPosts: JSON.stringify(userPosts), notifs: notifs, notifsPosts: notifsPosts, profilePic: posterImageUrl });
         }
       });
     } else {
@@ -94,7 +107,7 @@ router.post('/add-outing', function(req, res) {
     res.redirect('/');
 });
 
-router.post('/join/:postID/:joiner', function(req, res) {
+router.post('/join/:postID/:joinerName/:joinerID/:joinerEmail', function(req, res) {
   console.log(req.params.postID);
 
   Post.findById(req.params.postID, function(err, doc) {
@@ -102,13 +115,34 @@ router.post('/join/:postID/:joiner', function(req, res) {
       console.log(err);
     } else {
       doc.isSomeoneGoing = true;
-      doc.personGoing = req.params.joiner;
+      doc.personGoing = req.params.joinerName;
+      doc.personGoingID = req.params.joinerID;
+      doc.personGoingEmail = req.params.joinerEmail;
       doc.save();
     }
 
   });
 
   res.redirect('/');
+});
+
+router.post('/accept/:joinerEmail/:postID', function(req, res) {
+  console.log(req.params.postID);
+  console.log(req.params.joinerEmail);
+  sendmail({
+    from: req.user.facebook.email,
+    to: req.params.joinerEmail,
+    subject: "Let's eat!",
+    html: "Hey, It's me " + req.user.facebook.name + ", and we are on to eat!",
+  }, function(err, reply) {
+    console.log(err && err.stack);
+    console.dir(reply);
+  });
+
+  Post.findByIdAndRemove(req.params.postID, (err, todo) => {
+    res.redirect('/')
+  });
+
 });
 
 // route that cointains the restaurant data

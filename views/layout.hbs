@@ -1,35 +1,70 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>{{title}}</title> <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
 
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
+<head>
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <!-- load fontawesome -->
 
-    <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
 
-    hello {{{user.facebook.name}}}
+<body>
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: '358344031242511',
+        autoLogAppEvents: true,
+        xfbml: true,
+        version: 'v2.11'
+      });
+    };
+
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+        return;
+      }
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+  <div class="" style="width: 80%; margin: 0 auto;">
+    <h3><b>TableForTwo</b></h3>
+
+    {{#if user}}
+      <img class='profile-img' src="http://graph.facebook.com/{{user.facebook.id}}/picture?type=square" alt=""> {{{user.facebook.email}}}
+    {{else}}
+      <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
+    {{/if}}
 
     <ul>
-      <li><a href="/new">add a reservation</a></li>
+      <li><a href="/new">Go out!</a></li>
     </ul>
 
     <ul>
       {{#if user}}
-      <li><a href="/logout">Logout</a></li>
+        <li><a href="/logout">Logout</a></li>
       {{/if}}
     </ul>
 
+
     {{{body}}}
-  </body>
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  </div>
+</body>
 
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBktahDyXxT0XCyMnbgb0yftsMmJ4rlN1k&callback=initMap"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBktahDyXxT0XCyMnbgb0yftsMmJ4rlN1k&callback=initMap"></script>
 
-  <script type="text/javascript">
-
-  </script>
+<script type="text/javascript">
+</script>
 
 </html>

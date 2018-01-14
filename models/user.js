@@ -12,10 +12,17 @@ var userSchema = mongoose.Schema({
         id           : String,
         token        : String,
         name         : String,
-        email        : String
+        email        : String,
+        accepted     : Boolean
     }
 
 });
+
+// Instance methods
+userSchema.methods.add = function(accepted, callback){
+    this.accepted = accepted;
+    return this.save(callback);
+}
 
 // methods ======================
 // generating a hash

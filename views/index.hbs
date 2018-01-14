@@ -1,15 +1,33 @@
-<h1>Table for two</h1>
+<h3>You have {{notifs}} notifications!</h3>
+
+{{#each notifsPosts}}
+  <div class="">
+    {{this.personGoing}} wants to eat with you!
+    <form action="/accept/{{this.personGoingEmail}}/{{this._id}}" method="POST">
+      <img class='profile-img' src="http://graph.facebook.com/{{this.personGoingID}}/picture?type=square" alt="">
+      <a href="https://www.facebook.com/app_scoped_user_id/{{this.personGoingID}}">View thier facebook profile</a>
+      <button type="submit">Accept!</button>
+    </form>
+    <form action="/delete/{{this.personGoingEmail}}" method="POST">
+      <button type="submit">Delete notification</button>
+    </form>
+  </div>
+{{/each}}
+
+<br>
 
 <div id="show-map"></div>
 
 
 <p id="user-name">{{ user.facebook.name }}</p>
 <p id="user-id">{{ user.facebook.id }}</p>
+<p id="user-email">{{ user.facebook.email }}</p>
 
-{{ userPosts }}
 
 <script type="text/javascript">
   var userName = document.getElementById('user-name').innerHTML;
+  var userID = document.getElementById('user-id').innerHTML;
+  var userEmail = document.getElementById('user-email').innerHTML;
 
   var posts = {{{ posts }}};
 
@@ -56,10 +74,10 @@
       var contentString = '<div id="content">'+
       '<div id="siteNotice">'+
       '</div>'+
-      '<h1 id="firstHeading" class="firstHeading">'+ post.userName + ' is going to ' + post.address + '</h1>'+
+      '<h1 id="firstHeading" class="firstHeading">'+ post.userName + ' is going to ' + post.address + ' at ' + post.timeGoing + '</h1>'+
       '<div id="bodyContent">'+
-      '<form action="/join/' + post._id + '/' + userName +'" method="POST">'+
-        '<input class="vote-button up" type="submit" name="upvote" value="Join them!"/></form>'+
+      '<form action="/join/' + post._id + '/' + userName +'/'+ userID + '/' + userEmail + '" method="POST">'+
+        '<input class="" type="submit" name="upvote" value="Join them!"/></form>'+
       '(posted on '+ post.date +').</p>'+
       '</div>'+
       '</div>';

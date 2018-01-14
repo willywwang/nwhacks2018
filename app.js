@@ -11,6 +11,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var passport = require('passport');
 var session = require('express-session');
 var configDB = require('./config/database.js');
+var io = require('socket.io').listen(app);
 
 require('./config/passport')(passport); // pass passport for configuration
 
@@ -36,7 +37,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
-
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
