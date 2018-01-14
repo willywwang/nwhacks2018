@@ -128,13 +128,11 @@ angular.module('app')
 				});
 			}
 
-			$scope.loadRestaurantMarkers();
+			loadRestaurantMarkers();
 		}
 
-		$scope.loadRestaurantMarkers = function() {
+		function loadRestaurantMarkers() {
 			var location = $scope.map.getCenter();
-			console.log(location.lat());
-			console.log(location.lng());
 
 			var request = {
 				lat: location.lat(),
