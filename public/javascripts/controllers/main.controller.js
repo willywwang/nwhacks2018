@@ -141,14 +141,41 @@ angular.module('app')
 				offset: 0
 			};
 
+			// TODO: avoid callback hell - also when there aren't 100 restaurants
 			$http.post('/data', request).success(function(data) {
-				console.log(data);
+				request.offset = 20;
+				$http.post('/data', request).success(function(data1) {
+					request.offset = 40;
+					$http.post('/data', request).success(function(data2) {
+						request.offset = 60;
+						$http.post('/data', request).success(function(data3) {
+							request.offset = 80;
+							$http.post('/data', request).success(function(data4) {
+								var restaurants = data.restaurants;
+								restaurants = restaurants.concat(data1.restaurants);
+								restaurants = restaurants.concat(data2.restaurants);
+								restaurants = restaurants.concat(data3.restaurants);
+								restaurants = restaurants.concat(data4.restaurants);
 
-				$scope.mymarker = new google.maps.Marker({
-					map: $scope.map,
-					animation: google.maps.Animation.DROP,
-					position: $scope.map.getCenter(),
-					title: 'xd'
+								restaurants.forEach(function(restaurant) {
+									var newRestaurant = restaurant.restaurant;
+									$scope.marker = new google.maps.Marker({
+										map: $scope.map,
+										position: new google.maps.LatLng(newRestaurant.location.latitude, newRestaurant.location.longitude),
+										title: newRestaurant.name
+									});
+								});
+							}, function(err) {
+								console.log(err);
+							});
+						}, function(err) {
+							console.log(err);
+						});
+					}, function(err) {
+						console.log(err);
+					});
+				}, function(err) {
+					console.log(err);
 				});
 			}, function(err) {
 				console.log(err);
