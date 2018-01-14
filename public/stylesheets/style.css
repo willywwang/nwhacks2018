@@ -101,6 +101,10 @@ h1 {
 	margin-bottom: -2vh;
 }
 
+#restaurant-button:focus {
+	 background-color: white;
+}
+
 #people-button {
 	display: block;
 	float: right;
