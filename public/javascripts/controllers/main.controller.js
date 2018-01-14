@@ -5,6 +5,7 @@ angular.module('app')
 		$scope.filteredRestaurants = [];
 		$scope.selectedRestaurant = {};
 		$scope.markers = {};
+		$scope.coords = {};
 		
 		function initPage() {
 			$scope.activeLink = 'restaurant';
@@ -130,6 +131,8 @@ angular.module('app')
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(function (position) {
 					var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+					$scope.coords.lat = initialLocation.lat();
+					$scope.coords.lng = initialLocation.lng();
 					$scope.map.setCenter(initialLocation);
 
 					$scope.userMarker = new google.maps.Marker({
@@ -137,19 +140,19 @@ angular.module('app')
 						map: $scope.map,
 						icon: 'http://www.robotwoods.com/dev/misc/bluecircle.png'
 					});
+
+					loadRestaurantMarkers();
 				});
 			}
-
-			loadRestaurantMarkers();
 		}
 
 		function loadRestaurantMarkers() {
 			var location = $scope.map.getCenter();
 
 			var request = {
-				lat: location.lat(),
-				lon: location.lng(),
-				radius: 500,
+				lat: $scope.coords.lat,
+				lon: $scope.coords.lng,
+				radius: 15000,
 				offset: 0
 			};
 
@@ -168,7 +171,6 @@ angular.module('app')
 							$scope.restaurants = $scope.restaurants.concat(data3.businesses);
 
 							$scope.restaurants.forEach(function(restaurant) {
-								console.log(restaurant);
 								$scope.markers[restaurant.name] = new google.maps.Marker({
 									map: $scope.map,
 									position: new google.maps.LatLng(restaurant.coordinates.latitude, restaurant.coordinates.longitude),
@@ -177,7 +179,7 @@ angular.module('app')
 
 								google.maps.event.addListener($scope.markers[restaurant.name], 'click', function () {
 									var selectedRestaurantName = restaurant.name;
-									$scope.selectedRestaurant = $scope.restaurants.filter(r => r.name == selectedRestaurantName)[0];
+									$scope.selectedRestaurant = $scope.restaurants.filter(r => r.name == selectedRestaurantName.trim())[0];
 
 									$uibModal.open({
 										templateUrl: 'restaurant.template.html',
@@ -191,7 +193,7 @@ angular.module('app')
 								});
 							});
 
-							$scope.filteredRestaurants = $scope.restaurants.splice(0, 25);
+							$scope.filteredRestaurants = $scope.restaurants.slice(0, 25);
 						}, function(err) {
 							console.log(err);
 						});

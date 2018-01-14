@@ -1,4 +1,15 @@
 <div class="modal-body">
+	<h5 class="pull-right">{{restaurant.price}}</h5>
+	<h1 style="text-align: center">
+		<a class="title-link" href="{{restaurant.url}}" target="_blank">{{restaurant.name}}</a>
+	</h1>
+	<div class="categories">
+		<div ng-repeat="category in restaurant.categories" style="display: inline-block;">
+			<span class='label'>{{category.title}}</span> &nbsp;
+		</div>
+	</div>
+	<br/>
+	<hr/>
 	<div class="panel panel-danger" ng-show="showErrors">
 		<div class="panel-heading">
 			<h4 class="panel-title">
@@ -13,16 +24,41 @@
 			</h4>
 		</div>
 	</div>
-	<h1>
-		{{restaurant.name}}
-	</h1>
-	<div class="categories">
-			<span class='label'>{1}</span> &nbsp;
-			<span class='label'>{1}</span> &nbsp;
-			<span class='label'>{1}</span>
+	<div class="row" style="height:25%;margin-bottom:25px">
+		<div class="col-xs-12 col-md-6">
+			<h4 style="text-align: center;font-family:roboto;">
+				Find a User
+			</h4>
+		</div>
+		<div class="col-xs-12 col-md-6">
+			<h4 style="text-align: center;font-family: roboto;">
+				Make a Reservation
+			</h4>
+			<br/>
+			<form ng-submit="submit()" ng-hide="showSuccess || didUserSubmit">
+				<label>Start Time</label>
+				<div class="input-group" moment-picker="ctrl.timepicker" format="HH:mm">
+					<span class="input-group-addon">
+						<i class="fa fa-clock-o"></i>
+					</span>
+					<input class="form-control" placeholder="Start Time" ng-model="ctrl.timepicker" ng-model-options="{ updateOn: 'blur' }">
+				</div>
+				<br/>
+				<label>End Time</label>
+				<div class="input-group" moment-picker="ctrl.timepicker" format="HH:mm">
+					<span class="input-group-addon">
+					<i class="fa fa-clock-o"></i>
+					</span>
+					<input class="form-control" placeholder="Start Time" ng-model="ctrl.timepicker" ng-model-options="{ updateOn: 'blur' }">
+				</div>
+				<br/>
+				<input type="submit" value="Submit" class="btn btn-primary pull-right"/>
+			</form>
+		</div>
 	</div>
 	<i class="fa fa-spinner fa-spin" ng-show="didUserSubmit"></i>
-	<div class="modal-footer">
-		<input type="close" value="Close" ng-click="close()" class="btn btn-primary" style="width: 15%"/>
+	<div class="modal-footer" style="padding: 0 0 0 0;height: 40px;">
+		<div style="height:10px;width:100%"></div>
+		<input type="close" value="Close" ng-click="close()" class="btn btn-default" style="width: 15%;"/>
 	</div>
 </div>
