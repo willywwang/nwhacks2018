@@ -153,36 +153,6 @@ angular.module('app')
 				offset: 0
 			};
 
-			// $http.post('/data', request).success(function(data) {
-			// 	console.log(data);
-			// 	$scope.restaurants = data.map(r => r.restaurant);
-
-			// 	$scope.restaurants.forEach(function(restaurant) {
-			// 		$scope.markers[restaurant.name] = new google.maps.Marker({
-			// 			map: $scope.map,
-			// 			position: new google.maps.LatLng(restaurant.location.latitude, restaurant.location.longitude),
-			// 			title: restaurant.name
-			// 		});
-
-			// 		google.maps.event.addListener($scope.markers[restaurant.name], 'click', function () {
-			// 			var selectedRestaurantName = restaurant.name;
-			// 			$scope.selectedRestaurant = $scope.restaurants.filter(r => r.name == selectedRestaurantName)[0];
-
-			// 			$uibModal.open({
-			// 				templateUrl: 'restaurant.template.html',
-			// 				controller: 'modalController',
-			// 				resolve: {
-			// 					selectedRestaurant: function() {
-			// 						return $scope.selectedRestaurant;
-			// 					}
-			// 				}
-			// 			});
-			// 		});
-			// 	});
-			// }, function(err) {
-			// 	console.log(err);
-			// });
-
 
 			//TODO: avoid callback hell - also when there aren't 100 restaurants
 			$http.post('/data', request).success(function(data) {
