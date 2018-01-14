@@ -110,3 +110,7 @@ h1 {
 	background-color: grey;
 	margin-bottom: -2vh;
 }
+
+.active {
+	background-color: black !important;
+}

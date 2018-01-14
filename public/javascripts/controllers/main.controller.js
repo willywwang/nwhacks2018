@@ -1,6 +1,8 @@
 angular.module('app')
 .controller('mainController', ['$scope', '$rootScope', '$http', '$window', '$uibModal',
 	function($scope, $rootScope, $http, $window, $uibModal) {
+		$scope.activeLink = 'restaurant';
+
 		var item = {
 			coordinates: [49.2765, -123.2177]
 		};
@@ -142,4 +144,20 @@ angular.module('app')
     			title: woa.city
     		});
     	};
+
+		$scope.getActiveMenuLinkClass = function(path) {
+			if (!path) {
+				return '';
+			}
+			
+			return ($scope.activeLink === path) ? 'active' : '';
+		};
+
+		$scope.openRestaurantList = function() {
+			$scope.activeLink = 'restaurant';
+		};
+
+		$scope.openPeopleList = function() {
+			$scope.activeLink = 'people';
+		};
     }]);
