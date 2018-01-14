@@ -28,6 +28,10 @@ input[type=text]:focus {
     color: black;
 }
 
+.col-xs-3 {
+	background-color: #c4c4c4;
+}
+
 
 #search {
 	z-index: 20;
@@ -89,32 +93,36 @@ h1 {
 	height: 45em;
 	width: 80%;
 	outline: 2px solid gray;
+	background-color: white;
 }
 
 #restaurant-button  {
+	font-family: Karla;
 	display: block;
 	margin-left: 25%;
 	float: left;
 	width: 6vw;
 	height: 5vh;
-	background-color: grey;
+	background-color: #dbdbdb;
 	margin-bottom: -2vh;
 }
 
-#restaurant-button:focus {
-	 background-color: white;
-}
-
 #people-button {
+	font-family: Karla;
 	display: block;
 	float: right;
 	margin-right: 25%;
 	width: 6vw;
 	height: 5vh;
-	background-color: grey;
+	background-color: #dbdbdb;
 	margin-bottom: -2vh;
 }
 
+p {
+	margin-top: 1vh;
+	text-align: center;
+}
 .active {
-	background-color: black !important;
+	background-color: #961e1e !important;
+	color: white;
 }
