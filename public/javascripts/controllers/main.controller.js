@@ -13,6 +13,7 @@ angular.module('app')
 		$scope.imageUrl = "";
 		$scope.currentState = 0;
 		$scope.posts = {};
+		$scope.notifsPosts = [];
 		
 		function initPage() {
 			$scope.activeLink = 'restaurant';
@@ -163,6 +164,7 @@ angular.module('app')
 				$http.get('/posts').success(function(data) {
 					$scope.posts = data.posts
 					$scope.loadMarkers();
+					$scope.notifsPosts = data.notifsPosts;
 				}, function(err) {
 					console.log(err);
 				});
@@ -202,6 +204,9 @@ angular.module('app')
 								},
 								imageUrl: function() {
 									return $scope.imageUrl;
+								},
+								notifsPosts: function() {
+									return $scope.notifsPosts;
 								}
 							}
 						});
@@ -295,6 +300,9 @@ angular.module('app')
 											},
 											imageUrl: function() {
 												return $scope.imageUrl;
+											},
+											notifsPosts: function() {
+												return $scope.notifsPosts;
 											}
 										}
 									});
@@ -328,7 +336,7 @@ angular.module('app')
 		'<div id="siteNotice">'+
 		'</div>'+
 		'<h4 id="firstHeading" class="firstHeading"><img class="profile-img" src="http://graph.facebook.com/'+ post.userID +'/picture?type=square" alt="">&nbsp;'+
-		 post.userName + ' is going to ' + post.address + ' from ' + post.startTime + ' to ' + post.endTime +'</h4>'+
+		post.userName + ' is going to ' + post.address + ' from ' + post.startTime + ' to ' + post.endTime +'</h4>'+
 		'<div id="bodyContent" ng-if="isLoggedIn">'+
 		'<form action="/join/' + post._id + '/' + post.userName +'/'+ post.userID + '/' + email + '" method="POST">'+
 		'<input class="btn btn-warning" type="submit" name="upvote" value="Join them!"/></form><br>'+
@@ -374,6 +382,33 @@ angular.module('app')
 				},
 				imageUrl: function() {
 					return $scope.imageUrl;
+				},
+				notifsPosts: function() {
+					return $scope.notifsPosts;
+				}
+			}
+		})
+	}
+
+	$scope.openModal = function() {
+		$uibModal.open({
+			templateUrl: 'post.template.html',
+			controller: 'modalController',
+			resolve: {
+				selectedRestaurant: function() {
+					return $scope.selectedRestaurant;
+				},
+				isLoggedIn: function() {
+					return $scope.isLoggedIn;
+				},
+				user: function() {
+					return $scope.user;
+				},
+				imageUrl: function() {
+					return $scope.imageUrl;
+				},
+				notifsPosts: function() {
+					return $scope.notifsPosts;
 				}
 			}
 		})

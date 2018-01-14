@@ -1,0 +1,13 @@
+<div class="modal-body">
+	<div ng-repeat="post in notifsPosts">
+		{{post.personGoing}} wants to eat with you!
+		<form action="{{'/accept/' + post.personGoingEmail + '/' + post._id" method="POST">
+			<img class='profile-img' ng-src="{{imageUrl}}" alt="">
+			<a href="{{'https://www.facebook.com/app_scoped_user_id/' + post.personGoingID}}">View thier facebook profile</a>
+			<button type="submit">Accept!</button>
+		</form>
+		<form action="{{'/delete/' + post.personGoingEmail}}" method="POST">
+			<button type="submit">Delete notification</button>
+		</form>
+	</div>
+</div>

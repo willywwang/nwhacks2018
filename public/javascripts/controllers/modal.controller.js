@@ -1,6 +1,6 @@
 angular.module('app')
-.controller('modalController', ['selectedRestaurant', 'isLoggedIn', 'user', 'imageUrl', '$scope', '$rootScope','$uibModal', '$uibModalInstance', '$http',
-	function(selectedRestaurant, isLoggedIn, user, imageUrl, $scope, $rootScope, $uibModal, $uibModalInstance, $http) {
+.controller('modalController', ['selectedRestaurant', 'isLoggedIn', 'user', 'imageUrl', 'notifsPosts','$scope', '$rootScope','$uibModal', '$uibModalInstance', '$http',
+	function(selectedRestaurant, isLoggedIn, user, imageUrl, notifsPosts, $scope, $rootScope, $uibModal, $uibModalInstance, $http) {
 		$scope.didUserSubmit = false;
 		$scope.showErrors = false;
 		$scope.showSuccess = false;
@@ -12,6 +12,9 @@ angular.module('app')
 		$scope.noUsers = true;
 		$scope.users = [];
 		$scope.imageUrl = imageUrl;
+		$scope.notifsPosts = notifsPosts;
+
+		console.log('asdf', notifsPosts);
 
 		$scope.restaurant = selectedRestaurant;
 
