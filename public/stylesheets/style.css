@@ -248,6 +248,9 @@ ul {
 	
 	#icon {
 		height: 10vh;
+		outline-radius: 5px;
+		outline: 1px solid gray;
+		
 	}
 	.header-phone {
 		position: fixed;
@@ -296,6 +299,8 @@ ul {
 
 	}
 	
+	/*
+	
 	#horizontal{
 		z-index: 20;
 		overflow: auto;
@@ -307,5 +312,10 @@ ul {
 		display: inline-block;
 		text-align: center;
    
+	}
+	*/
+	
+	#closebutton {
+		margin-right: -5%;
 	}
 }
