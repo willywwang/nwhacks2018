@@ -107,7 +107,8 @@ h1 {
 	margin-bottom: -2vh;
 }
 
-#people-button {
+
+#people-button {	
 	font-family: Karla;
 	display: block;
 	float: right;
@@ -118,10 +119,20 @@ h1 {
 	margin-bottom: -2vh;
 }
 
+#people-button:hover {
+	cursor: pointer;
+}
+
+
 p {
 	margin-top: 1vh;
 	text-align: center;
 }
+
+p:hover {
+	 cursor: pointer;
+}
+
 .active {
 	background-color: #961e1e !important;
 	color: white;
